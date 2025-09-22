@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+    <head>
+        <title>insyhmi.io</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <style>
+            * {
+                margin: 0px;
+                color: white;
+                font-family: "Consolas";
+                box-sizing: border-box;
+                margin: 10px 0px;
+            }
+            body {
+                background-color : rgb(44, 44, 44);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center
+            }
+            #main{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+            }
+            #tooltip{
+                margin-top: 20px;
+                font-size: 17px;
+                overflow: visible;
+                white-space: nowrap;
+            }
+            h1{
+                font-size: 40px;
+            }
+            #main_header_title{
+                text-align: center;
+            }
+            #main_header_picture{
+                width: 140px;
+                height: 140px;
+                border-radius: 50%;
+                background-color: white;
+                box-shadow: 0px 0px 25px rgba(255,255,255, 0.2);
+            }
+            #main_header_social_media{
+                display: flex;
+            }
+            hr{
+                width: 100%;
+                margin: 5px;
+            }
+            .inline-code{
+                background-color: #323232;
+                border-radius: 4px;
+                border: 2px solid #5e5e5e;
+                font-weight: bold;
+                font-family: "SFMono-Regular", Consolas;
+                padding: 0.2em 0.4em;
+                color: #0ed1c1;  
+                text-align: center
+            }
+            .button-icon{
+                background-color: rgba(0,0,0,0);
+                border: none;
+                padding: 0px;
+                margin: 0px 7px;
+            }
+            .icon{
+                height: 32px;
+                width: 32px;
+                font-size: 32px;
+                text-align: center;
+            }
+            .icon-linkedin, .icon-leetcode{
+                color: white;
+            }
+            .button-icon:hover .icon-linkedin{
+                color: #0a5fe9;
+            }
+            .button-icon:hover .icon-leetcode{
+                stroke: #ddbc14;
+            }
+            .button-icon:hover .icon-youtube{
+                color: #e53434;
+            }
+            .button-icon:hover .icon-tiktok{
+                color: #0df3ef;
+            }
+            .button-icon:hover .icon-github{
+                color: #4078c0;
+            }
+            #body_main, #body_project{
+                width: 90%;
+            }
+            #body_main p, #body_main h2{
+                margin: 20px 0;
+            }
+            .body_project_child{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            .body_project_child_thumbnail{
+                border: 1px solid red;
+                height: 100px;
+                min-width: 100px;
+            }
+            .body_project_child_main{
+                padding: 0px 10px;
+                display: flex;
+                flex-direction: column;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <div id="main_header_picture">
+                <img>
+            </div>
+            <div id="main_header_title">            
+                <h1>insyhmi.io</h1>
+                <h3 id="tooltip"></h3>
+            </div>
+            <div id="main_header_social_media">
+                <button class="button-icon">
+                    <!--Linkedin-->
+                    <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
+                </button>
+                <button class="button-icon">
+                    <!--Leetcode-->
+                    <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
+                        <path d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373"/>
+                        <path d="M18.7571,13.41,27.7647,4.5"/>
+                        <path d="M19.5838,27.5918h21.49"/>
+                    </svg>
+                </button>
+                <button class="button-icon">
+                    <!--Youtube-->
+                    <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
+                </button>
+                <button class="button-icon">
+                    <!--Tiktok-->
+                    <i class="fa-brands fa-tiktok icon icon-tiktok"></i>
+                </button>
+                <button class="button-icon">
+                    <!--Github-->
+                    <i class="fa-brands fa-github icon icon-github"></i>
+                </button>
+                
+            </div>
+            <hr>
+            <div id="body_main">
+                <h2>Hi!</h2>
+                <p>
+                    I'm Lan. 20. M. 🇲🇾 . CS student @ INTEC.<br />
+                    I like mathematics, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
+                    Data science and cybersecurity interest me, but I'll let fate decide the best for me.<br />
+                    I also know video editing! Feel free to judge my creations on my channel. 
+                </p>
+            </div>
+            <div id="body_project">
+                <h2>Projects</h2>
+                <table>
+                    <tr><th></th><th></th></tr>
+                    
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Lanx's Minesweeper
+                            </div>
+                            <div class="project_description">
+                                My own iteration of the infamous roomba amusemenet using Python
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                POS System       
+                            </div>
+                            <div class="project_description">
+                                Point of Sale System
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Sisyphus by Monyet Python      
+                            </div>
+                            <div class="project_description">
+                                InHacks Hackathon 2025 Project. (Champion btw)
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Waktu Solat       
+                            </div>
+                            <div class="project_description">
+                                A desktop application that provides local prayer time in Malaysia using PyQt6
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                CS50 AI       
+                            </div>
+                            <div class="project_description">
+                                My projects during CS50 AI learning.
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Rubisco Bank Soalan SPM       
+                            </div>
+                            <div class="project_description">
+                                A website I created for fun to host questions from multiple past papers in an interactive way
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Project ECO      
+                            </div>
+                            <div class="project_description">
+                                A game that I programmed for a team competition hosted by CETREE from Universiti Sains Malaysia (USM)
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr class="body_project_child">
+                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Library Management Software       
+                            </div>
+                            <div class="project_description">
+                                I created a web-based library management software which includes a plethora of features and functions for my highschool
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+    </body>
+    <script>
+        async function fetchCurrency(){
+            try{
+                const data = await fetch("https://v6.exchangerate-api.com/v6/ee273f4dbd417a5a19412ffe/latest/USD").then(res => res.json());
+                return ```1 US Dollar = ${data["conversion_rates"]["MYR"]} MY Ringgit```;
+            } catch (error){
+                return "Y'know I could've show you today's currency exchange rates here"
+            }
+        }
+        
+        function getRandomIntInclusive(max) {
+            max = Math.floor(max);
+            return Math.floor(Math.random() * max);
+        }
+
+        async function display(){
+            let rate = await fetchCurrency();
+            document.getElementById("tooltip").innerHTML = rate;
+            console.log(rate);
+        }
+        let tooltip_collection = [
+            "I do code", 
+            "I am proficient in Malay, English, and C++",
+            "Not that I'm trying to be a minimalist here, I just don't like CSS",
+            "I don't like PHP really",
+            "I come with many aliases.",
+            "Suprisingly, you're here. Welcome, perhaps.",
+            "Hank! Don't abbreviate competitive programming! Hank!",
+            "Wanting to create my own game was my canon event that brought me to what I have become.",
+            "I'm quite the opposite of AI. I'm genuinely stupid.",
+            "I am myself's boss fight",
+            "Hank! Don't abbreviate cummulative_weights for Python's random.choices() method! Hank!",
+            "Better than a master of one.",
+            "Be aware that this text can change...",
+            "C++ is just C, with a bajillion changes between them, but it's still C, you know...",
+            "AI cannot replicate how naive I can be",
+            "delete [] greed; greed = nullptr;",
+            "Black and white..",
+            "The holy web dev trinity [HTML, CSS, JS]. ",
+            "My dream is to hack NASA using HTML and LaTeX",
+            "currency_exchange"
+        ];
+        let tooltip_length = tooltip_collection.length;
+        let i = getRandomIntInclusive(tooltip_length);
+        if (i == 19){
+            let rate = fetchCurrency();
+            display();
+            console.log(rate);
+        }else{
+            document.getElementById("tooltip").innerHTML = tooltip_collection[i];
+        }
+    </script>
+</html>
