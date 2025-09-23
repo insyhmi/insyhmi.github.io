@@ -49,6 +49,14 @@
             #main_header_social_media{
                 display: flex;
             }
+            #i{
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+                border-radius: 50%;
+                display: block;
+                object-fit: cover;
+            }
             hr{
                 width: 100%;
                 margin: 5px;
@@ -116,16 +124,18 @@
             .body_project_child_thumbnail{
                 height: 100px;
                 min-width: 100px;
+                max-width: 100px;
             }
             .body_project_child_thumbnail img{
                 height: 100%;
                 width: 100%;
-                object-fit: cover;
+                object-fit: contain;
+                display: block;
                 margin: 0px;
                 border-radius: 4px;
             }
             .body_project_child_main{
-                padding: 0px 10px;
+                padding: 0px 0px 0px 30px;
                 display: flex;
                 flex-direction: column;
             }
@@ -135,7 +145,7 @@
     <body>
         <div id="main">
             <div id="main_header_picture">
-                <img>
+                <img src="assets/i.jpg" id="i">
             </div>
             <div id="main_header_title">            
                 <h1>insyhmi.io</h1>
@@ -211,7 +221,9 @@
                     </tr>
 
                     <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/pos-system', '_blank')">
-                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/pos.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 POS System       
@@ -231,7 +243,7 @@
                                 Sisyphus by Monyet Python      
                             </div>
                             <div class="project_description">
-                                InHacks Hackathon 2025 Project. (Champion btw)
+                                Winning Application of InHacks Hackathon 2025.
                             </div>
                         </td>
                     </tr>
@@ -251,7 +263,9 @@
                     </tr>
 
                     <tr class="body_project_child" onmouseup="window.open('https://github.com/code50/187157137', '_blank')">
-                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/CS50AI.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 CS50 AI       
@@ -277,7 +291,9 @@
                     </tr>
                     
                     <tr class="body_project_child" onmouseup="window.open('https://drive.google.com/file/d/1vDgBsSV2inUlXNVbbh6k1wljMnyrJik2/view?usp=sharing', '_blank')">
-                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/eco.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Project ECO      
@@ -289,7 +305,9 @@
                     </tr>
                     
                     <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail"></td>
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/perkasa.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Library Management Software       
