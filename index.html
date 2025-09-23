@@ -78,6 +78,9 @@
             .icon-linkedin, .icon-leetcode{
                 color: white;
             }
+            .button-icon:hover{
+                cursor: pointer;
+            }
             .button-icon:hover .icon-linkedin{
                 color: #0a5fe9;
             }
@@ -127,10 +130,12 @@
                 <h3 id="tooltip"></h3>
             </div>
             <div id="main_header_social_media">
+                <a href="https://www.linkedin.com/in/idlan-syahmi/" target="_blank">
                 <button class="button-icon">
                     <!--Linkedin-->
                     <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
                 </button>
+                </a>
                 <button class="button-icon">
                     <!--Leetcode-->
                     <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
@@ -308,16 +313,9 @@
             "Black and white..",
             "The holy web dev trinity [HTML, CSS, JS]. ",
             "My dream is to hack NASA using HTML and LaTeX",
-            "currency_exchange"
         ];
         let tooltip_length = tooltip_collection.length;
         let i = getRandomIntInclusive(tooltip_length);
-        if (i == 19){
-            let rate = fetchCurrency();
-            display();
-            console.log(rate);
-        }else{
-            document.getElementById("tooltip").innerHTML = tooltip_collection[i];
-        }
+        document.getElementById("tooltip").innerHTML = tooltip_collection[i];
     </script>
 </html>
