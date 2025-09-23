@@ -107,10 +107,22 @@
                 flex-direction: row;
                 align-items: center;
             }
+            .body_project_child:hover{
+                cursor: pointer;
+            }
+            .body_project_child:hover .project-title{
+                text-decoration: underline;
+            }
             .body_project_child_thumbnail{
-                border: 1px solid red;
                 height: 100px;
                 min-width: 100px;
+            }
+            .body_project_child_thumbnail img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                margin: 0px;
+                border-radius: 4px;
             }
             .body_project_child_main{
                 padding: 0px 10px;
@@ -131,32 +143,43 @@
             </div>
             <div id="main_header_social_media">
                 <a href="https://www.linkedin.com/in/idlan-syahmi/" target="_blank">
-                <button class="button-icon">
-                    <!--Linkedin-->
-                    <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
-                </button>
+                    <button class="button-icon">
+                        <!--Linkedin-->
+                        <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
+                    </button>   
                 </a>
-                <button class="button-icon">
-                    <!--Leetcode-->
-                    <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
-                        <path d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373"/>
-                        <path d="M18.7571,13.41,27.7647,4.5"/>
-                        <path d="M19.5838,27.5918h21.49"/>
-                    </svg>
-                </button>
-                <button class="button-icon">
-                    <!--Youtube-->
-                    <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
-                </button>
-                <button class="button-icon">
-                    <!--Tiktok-->
-                    <i class="fa-brands fa-tiktok icon icon-tiktok"></i>
-                </button>
-                <button class="button-icon">
-                    <!--Github-->
-                    <i class="fa-brands fa-github icon icon-github"></i>
-                </button>
-                
+
+                <a href="https://leetcode.com/u/lnxhm1/" target="_blank">
+                    <button class="button-icon">
+                        <!--Leetcode-->
+                        <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
+                            <path d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373"/>
+                            <path d="M18.7571,13.41,27.7647,4.5"/>
+                            <path d="M19.5838,27.5918h21.49"/>
+                        </svg>
+                    </button>
+                </a>
+
+                <a href="https://www.youtube.com/@lnxhm1" target="_blank">
+                    <button class="button-icon"> 
+                        <!--Youtube-->
+                        <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
+                    </button>
+                </a>
+
+                <a href="https://www.tiktok.com/@lnxhm1?lang=en" target="_blank">
+                    <button class="button-icon">
+                        <!--Tiktok-->
+                        <i class="fa-brands fa-tiktok icon icon-tiktok"></i>
+                    </button>
+                </a>
+
+                <a href="https://github.com/insyhmi" target="_blank">
+                    <button class="button-icon">
+                        <!--Github-->
+                        <i class="fa-brands fa-github icon icon-github"></i>
+                    </button>
+                </a>
             </div>
             <hr>
             <div id="body_main">
@@ -173,8 +196,10 @@
                 <table>
                     <tr><th></th><th></th></tr>
                     
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail"></td>
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/lanxs-minesweeper', '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/minesweeper.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Lanx's Minesweeper
@@ -185,7 +210,7 @@
                         </td>
                     </tr>
 
-                    <tr class="body_project_child">
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/pos-system', '_blank')">
                         <td class="body_project_child_thumbnail"></td>
                         <td class="body_project_child_main">
                             <div class="project-title">
@@ -197,8 +222,10 @@
                         </td>
                     </tr>
 
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail"></td>
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/monyet-python', '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/sisyphus.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Sisyphus by Monyet Python      
@@ -209,8 +236,10 @@
                         </td>
                     </tr>
                     
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail"></td>
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/waktu_solat', '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/waktu solat.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Waktu Solat       
@@ -221,7 +250,7 @@
                         </td>
                     </tr>
 
-                    <tr class="body_project_child">
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/code50/187157137', '_blank')">
                         <td class="body_project_child_thumbnail"></td>
                         <td class="body_project_child_main">
                             <div class="project-title">
@@ -233,8 +262,10 @@
                         </td>
                     </tr>
                     
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail"></td>
+                    <tr class="body_project_child" onmouseup="window.open('https://test-soalanspm.42web.io', '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="https://test-soalanspm.42web.io/icon.png">
+                        </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
                                 Rubisco Bank Soalan SPM       
@@ -245,7 +276,7 @@
                         </td>
                     </tr>
                     
-                    <tr class="body_project_child">
+                    <tr class="body_project_child" onmouseup="window.open('https://drive.google.com/file/d/1vDgBsSV2inUlXNVbbh6k1wljMnyrJik2/view?usp=sharing', '_blank')">
                         <td class="body_project_child_thumbnail"></td>
                         <td class="body_project_child_main">
                             <div class="project-title">
