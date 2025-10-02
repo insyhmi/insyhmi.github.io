@@ -5,11 +5,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
         <style>
             * {
                 margin: 0px;
                 color: white;
-                font-family: "Consolas";
+                font-family:  "Consolas", "Inconsolata" ;
                 box-sizing: border-box;
                 margin: 10px 0px;
             }
@@ -66,7 +69,7 @@
                 border-radius: 4px;
                 border: 2px solid #5e5e5e;
                 font-weight: bold;
-                font-family: "SFMono-Regular", Consolas;
+                font-family: "SFMono-Regular", "Consolas", "Inconsolata";
                 padding: 0.2em 0.4em;
                 color: #0ed1c1;  
                 text-align: center
@@ -93,16 +96,29 @@
                 color: #0a5fe9;
             }
             .button-icon:hover .icon-leetcode{
-                stroke: #ddbc14;
+                stroke: #E7A41F;
             }
             .button-icon:hover .icon-youtube{
                 color: #e53434;
             }
             .button-icon:hover .icon-tiktok{
-                color: #0df3ef;
+                color: #000;
+                text-shadow: -1px 0 #ee1d52, 0 1px #69c9d0, 1px 0 #69c9d0, 0 -1px #69c9d0;
             }
             .button-icon:hover .icon-github{
                 color: #4078c0;
+            }
+            .icon-hackerrank:hover{
+                fill: #46e71e;
+            }
+            .icon-codeforces:hover .codeforces-bar-1{
+                fill: #fff200;
+            }
+            .icon-codeforces:hover .codeforces-bar-2{
+                fill: #0066ff;
+            }
+            .icon-codeforces:hover .codeforces-bar-3{
+                fill: #d01205;
             }
             #body_main, #body_project{
                 width: 90%;
@@ -142,6 +158,12 @@
             @media screen and (max-width: 768px){
                 #main{
                     width: 95%;
+                }
+                #tooltip{
+                    white-space: normal;
+                }
+                #body_main p, #body_main h2{
+                    line-height: 1.4;
                 }
             }
         </style>
@@ -194,6 +216,26 @@
                         <i class="fa-brands fa-github icon icon-github"></i>
                     </button>
                 </a>
+
+                <a href = "https://www.hackerrank.com/profile/net15_harry" target="_blank">
+                    <button class="button-icon">
+                        <!-- Hackerrank-->
+                        <svg class="icon icon-hackerrank" viewBox="0 0 32 32" fill="white">
+                            <path d="M16 0c1.714 0 13 6.516 13.854 8 0.859 1.484 0.859 14.516 0 16s-12.141 8-13.854 8c-1.714 0-13-6.516-13.859-8-0.854-1.484-0.854-14.516 0-16 0.859-1.484 12.146-8 13.859-8zM19.063 9.068c-0.193 0-0.349 0.151-0.349 0.344v5.167h-5.427v-5.37h0.932c0.188 0 0.339-0.151 0.339-0.344 0-0.125-0.068-0.234-0.161-0.292l-2.099-2.010c-0.063-0.089-0.188-0.146-0.302-0.146-0.109 0-0.214 0.057-0.276 0.141l-2.24 2.016c-0.094 0.063-0.161 0.167-0.161 0.292 0 0.188 0.151 0.344 0.344 0.344h0.938l0.010 13.38c0 0.193 0.146 0.344 0.339 0.344h1.99c0.188 0 0.344-0.151 0.344-0.344v-5.339h5.432v5.536h-0.932c-0.193 0-0.344 0.156-0.344 0.344 0 0.125 0.068 0.234 0.161 0.292l2.104 2.016c0.057 0.083 0.188 0.146 0.302 0.146s0.208-0.063 0.276-0.146l2.24-2.016c0.094-0.057 0.161-0.167 0.161-0.292 0-0.188-0.156-0.344-0.344-0.344h-0.938l-0.010-13.375c0-0.198-0.151-0.349-0.339-0.349h-1.99z"/>
+                        </svg>
+                    </button>
+                </a>
+
+                <a href="https://codeforces.com/profile/lnxhm1" target="_blank">
+                    <button class="button-icon">
+                        <!-- Codeforces-->
+                        <svg class="icon icon-codeforces" viewBox="0 0 24 24" fill="currentColor">
+                            <path class="codeforces-bar-1" d="M4.5 7.5A1.5 1.5 0 0 1 6 9v10.5A1.5 1.5 0 0 1 4.5 21h-3C.673 21 0 20.328 0 19.5V9c0-.828.673-1.5 1.5-1.5h3z"/>
+                            <path class="codeforces-bar-2" d="M13.5 3A1.5 1.5 0 0 1 15 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-3c-.827 0-1.5-.672-1.5-1.5v-15c0-.828.673-1.5 1.5-1.5h3z"/>
+                            <path class="codeforces-bar-3" d="M22.5 12A1.5 1.5 0 0 1 24 13.5v6a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5v-6a1.5 1.5 0 0 1 1.5-1.5h3z"/>
+                        </svg>
+                    </button>
+                </a>
             </div>
             <hr>
             <div id="body_main">
@@ -202,7 +244,7 @@
                     I'm Lan. 20. M. 🇲🇾 . CS student @ INTEC.<br />
                     I like mathematics, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
                     Data science and cybersecurity interest me, but I'll let fate decide the best for me.<br />
-                    I also know video editing! Feel free to judge my creations on my channel. 
+                    I do video editing, too! Feel free to judge my creations on my channel. 
                 </p>
             </div>
             <div id="body_project">
@@ -219,7 +261,7 @@
                                 Lanx's Minesweeper
                             </div>
                             <div class="project_description">
-                                My own iteration of the infamous roomba amusemenet using Python
+                                My own iteration of the infamous roomba amusement using Python Pygame library.
                             </div>
                         </td>
                     </tr>
@@ -366,6 +408,8 @@
             "Black and white..",
             "The holy web dev trinity [HTML, CSS, JS]. ",
             "My dream is to hack NASA using HTML and LaTeX",
+            "I wish to be good in cp",
+            "This is an <span class='inline-code'>inline code</span>"
         ];
         let tooltip_length = tooltip_collection.length;
         let i = getRandomIntInclusive(tooltip_length);
