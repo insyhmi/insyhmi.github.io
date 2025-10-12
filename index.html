@@ -241,7 +241,7 @@
             <div id="body_main">
                 <h2>Hi!</h2>
                 <p>
-                    I'm Lan. 20. M. 🇲🇾 . CS student @ INTEC.<br />
+                    I'm Lan. <span id="age"></span>. M. 🇲🇾 . CS student @ INTEC.<br />
                     I like mathematics, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
                     Data science and cybersecurity interest me, but I'll let fate decide the best for me.<br />
                     I do video editing, too! Feel free to judge my creations on my channel. 
@@ -251,7 +251,21 @@
                 <h2>Projects</h2>
                 <table>
                     <tr><th></th><th></th></tr>
-                    
+
+                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/crafting-calculator', '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/mc-calculator.png">
+                        </td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                Crafting Calculator
+                            </div>
+                            <div class="project_description">
+                                A Python application to calculate the required ingredients for a specified item in Minecraft.
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/lanxs-minesweeper', '_blank')">
                         <td class="body_project_child_thumbnail">
                             <img src="assets/minesweeper.png">
@@ -369,15 +383,8 @@
         </div>
     </body>
     <script>
-        async function fetchCurrency(){
-            try{
-                const data = await fetch("https://v6.exchangerate-api.com/v6/ee273f4dbd417a5a19412ffe/latest/USD").then(res => res.json());
-                return ```1 US Dollar = ${data["conversion_rates"]["MYR"]} MY Ringgit```;
-            } catch (error){
-                return "Y'know I could've show you today's currency exchange rates here"
-            }
-        }
-        
+        const currentDate = new Date();
+        document.getElementById("age").innerText = currentDate.getFullYear() - 2006;
         function getRandomIntInclusive(max) {
             max = Math.floor(max);
             return Math.floor(Math.random() * max);
@@ -392,9 +399,9 @@
             "I do code", 
             "I am proficient in Malay, English, and C++",
             "Not that I'm trying to be a minimalist here, I just don't like CSS",
-            "I don't like PHP really",
+            "I barely remember PHP",
             "I come with many aliases.",
-            "Suprisingly, you're here. Welcome, perhaps.",
+            "Have you considered loving yourself?",
             "Hank! Don't abbreviate competitive programming! Hank!",
             "Wanting to create my own game was my canon event that brought me to what I have become.",
             "I'm quite the opposite of AI. I'm genuinely stupid.",
@@ -403,13 +410,14 @@
             "Better than a master of one.",
             "Be aware that this text can change...",
             "C++ is just C, with a bajillion changes between them, but it's still C, you know...",
-            "AI cannot replicate how naive I can be",
+            "AI cannot replicate how clueless I can be",
             "delete [] greed; greed = nullptr;",
             "Black and white..",
             "The holy web dev trinity [HTML, CSS, JS]. ",
             "My dream is to hack NASA using HTML and LaTeX",
             "I wish to be good in cp",
-            "This is an <span class='inline-code'>inline code</span>"
+            "This is an <span class='inline-code'>inline code</span>",
+            "I dont have spotify"
         ];
         let tooltip_length = tooltip_collection.length;
         let i = getRandomIntInclusive(tooltip_length);
