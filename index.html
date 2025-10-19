@@ -39,6 +39,9 @@
             h1{
                 font-size: 40px;
             }
+            p{
+                line-height: 1.5;
+            }
             #main_header_title{
                 text-align: center;
             }
@@ -70,7 +73,7 @@
                 border: 2px solid #5e5e5e;
                 font-weight: bold;
                 font-family: "SFMono-Regular", "Consolas", "Inconsolata";
-                padding: 0.2em 0.4em;
+                padding: 0.15em 0.3em;
                 color: #0ed1c1;  
                 text-align: center
             }
@@ -120,7 +123,7 @@
             .icon-codeforces:hover .codeforces-bar-3{
                 fill: #d01205;
             }
-            #body_main, #body_project{
+            #body_main, #body_project, #gists{
                 width: 90%;
             }
             #body_main p, #body_main h2{
@@ -182,8 +185,8 @@
                 #tooltip{
                     white-space: normal;
                 }
-                #body_main p, #body_main h2{
-                    line-height: 1.4;
+                #body_main h2, p{
+                    line-height: 1.6;
                 }
             }
         </style>
@@ -268,8 +271,8 @@
                 </p>
             </div>
             <div id="button_body_container">
-                <button onmouseup="show_project();">Project</button>
-                <button onmouseup="show_gists();">Gists</button>
+                <button id="toggle_project" onmouseup="show_project();" style="color: rgb(44, 44, 44); background-color: white;">Project</button>
+                <button id="toggle_gists" onmouseup="show_gists();">Gists</button>
             </div>
             <div id="body_project">
                 <h2>Projects</h2>
@@ -278,7 +281,7 @@
 
                     <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/crafting-calculator', '_blank')">
                         <td class="body_project_child_thumbnail">
-                            <img src="assets/mc-calculator.png">
+                            <img src="assets/mc-crafting.png">
                         </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
@@ -407,8 +410,8 @@
             <div id="gists" style="display:none;">
                 <h2>Gists</h2>
                 <p>
-                    Gists are code files that I worked on but doesn't count as a full independent project. <br/> Most of them are scripts used to test
-                    certain functionalities and/or logics before being implemented, but they are too complex to be called a throwaway test script. <br/>
+                    Gists are code files that I worked on but doesn't count as a full independent project. Most of them are scripts used to test
+                    certain functionalities and/or logics before being implemented, but they are too complex to be called a throwaway test script. 
                     Besides, it's not worth creating a separate repo to host all of the files if <span class="inline-code">gists.com</span> already exists, so feel free to look into it.<br/>
                 </p>
                 <table>
@@ -432,10 +435,16 @@
     </body>
     <script>
         function show_gists(){
+            document.getElementById("toggle_project").removeAttribute("style");
+            document.getElementById("toggle_gists").style.backgroundColor = "white";
+            document.getElementById("toggle_gists").style.color = "rgb(44, 44, 44)";
             document.getElementById("gists").style.display = "block";
             document.getElementById("body_project").style.display = "none";
         }
         function show_project(){
+            document.getElementById("toggle_gists").removeAttribute("style");
+            document.getElementById("toggle_project").style.backgroundColor = "white";
+            document.getElementById("toggle_project").style.color = "rgb(44, 44, 44)";
             document.getElementById("gists").style.display = "none";
             document.getElementById("body_project").style.display = "block";
             
