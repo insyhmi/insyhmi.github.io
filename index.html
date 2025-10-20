@@ -89,6 +89,9 @@
                 font-size: 32px;
                 text-align: center;
             }
+            p a{
+                display: inline;
+            }
             .icon-linkedin, .icon-leetcode{
                 color: white;
             }
@@ -122,6 +125,11 @@
             }
             .icon-codeforces:hover .codeforces-bar-3{
                 fill: #d01205;
+            }
+            .button-icon:hover .icon-x{ 
+                color:black;
+                background-color: rgba(255, 255, 255, 0.815);
+                box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.815);
             }
             #body_main, #body_project, #gists{
                 width: 90%;
@@ -259,6 +267,15 @@
                         </svg>
                     </button>
                 </a>
+
+                <a href="https://x.com/lnxhm1" target="_blank">
+                    <button class="button-icon">
+                        <!--Twitter X-->
+                        <i class="fa-brands fa-x-twitter icon icon-x"></i>
+                    </button>
+                </a>
+
+
             </div>
             <hr>
             <div id="body_main">
@@ -267,7 +284,8 @@
                     I'm Lan. <span id="age"></span>. M. 🇲🇾 . CS student @ INTEC.<br />
                     I like mathematics, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
                     Data science and cybersecurity interest me, but I'll let fate decide the best for me.<br />
-                    I do video editing, too! Feel free to judge my creations on my channel. 
+                    I do video editing, too! I usually posted my creations on Youtube, but who knows where it can also appear. <br />
+                    I started updating on <span class="inline-code">X-Twitter</span>, usually about programming and stuff. Feel free to follow. 
                 </p>
             </div>
             <div id="button_body_container">
@@ -462,28 +480,22 @@
             console.log(rate);
         }
         let tooltip_collection = [
-            "I do code", 
             "I am proficient in Malay, English, and C++",
             "Not that I'm trying to be a minimalist here, I just don't like CSS",
-            "I barely remember PHP",
-            "I come with many aliases.",
             "Have you considered loving yourself?",
             "Hank! Don't abbreviate competitive programming! Hank!",
             "Wanting to create my own game was my canon event that brought me to what I have become.",
-            "I'm quite the opposite of AI. I'm genuinely stupid.",
-            "I am myself's boss fight",
             "Hank! Don't abbreviate cummulative_weights for Python's random.choices() method! Hank!",
             "Better than a master of one.",
             "Be aware that this text can change...",
-            "C++ is just C, with a bajillion changes between them, but it's still C, you know...",
-            "AI cannot replicate how clueless I can be",
-            "delete [] greed; greed = nullptr;",
-            "Black and white..",
-            "The holy web dev trinity [HTML, CSS, JS]. ",
-            "My dream is to hack NASA using HTML and LaTeX",
-            "I wish to be good in cp",
+            "They should streamline C--",
             "This is an <span class='inline-code'>inline code</span>",
-            "I dont have spotify"
+            "I dont have spotify",
+            "I use soundcloud",
+            "My honest reaction when twitter suspends my account for the 17th time for 'avoiding suspension': ",
+            "git commmit -m \"how to use git?\"",
+            "Mathematics require a small dose of imagination, which in a larger dose would be insanity.",
+            "So called adventerous, yet doesnt know about -fpermissive."
         ];
         let tooltip_length = tooltip_collection.length;
         let i = getRandomIntInclusive(tooltip_length);
