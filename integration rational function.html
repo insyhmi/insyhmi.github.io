@@ -1,0 +1,922 @@
+<html>
+    <head>
+        <title>
+            Integration for Rational Function
+        </title>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            *{
+                box-sizing: border-box;
+                margin: 0px;
+                font-family: Inter, Arial, Helvetica, sans-serif;
+            }
+            body{
+                background: rgb(21, 21, 21);
+                color: white;
+            }
+            button{
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 18px;
+            }
+            .next, .prev, .reset{
+                cursor: pointer;
+                padding: 0.75rem 2rem; 
+                border-radius: 0.5rem;
+                color: white;
+                background-color: transparent;
+                border: 3px solid rgb(222, 222, 222);
+                border-bottom: 5px solid rgb(222, 222, 222);
+                transition: border 0.2s ease, border-bottom 0.2s ease, transform 0.2s ease;
+            }
+            .next:hover{
+                border: 3px solid rgb(0, 168, 0);
+                border-bottom: 5px solid rgb(0, 168, 0);
+                transform: translateY(-2px);
+            }
+            .next:active{
+                border-bottom: 3px solid rgb(0, 168, 0);
+                transform: translateY(7px);
+            }
+            .prev:hover{
+                transform: translateY(-2px);
+                border: 3px solid rgb(177, 12, 81);
+                border-bottom: 5px solid rgb(177, 12, 81);
+            }
+            .prev:active{
+                border-bottom: 3px solid rgb(177, 12, 81);
+                transform: translateY(7px); 
+            }
+            .reset:hover{
+                transform: translateY(-2px);
+                border: 3px solid rgb(15, 125, 194);
+                border-bottom: 5px solid rgb(15, 125, 194);
+            }
+            .reset:active{
+                border-bottom: 3px solid rgb(15, 125, 194);
+                transform: translateY(7px);
+            }
+            p{
+                color: white;
+                font-size: 19px;
+                line-height: 1.9;
+            }
+            #container{
+                display: flex;
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                min-height: 100vh; 
+                overflow-x: hidden; 
+                padding-bottom: 80px
+            }
+            .slide{
+                display: none;
+                padding-left: 50px;
+                padding-right: 50px;
+                width: 90%;
+            }
+            .slide-controls{
+                margin: 50px 0px;
+            }
+            #slide_1{
+                text-align: center;
+            }
+            .title{
+                font-size: 3rem;
+                margin: 20px 0px;
+            }
+            .subtitle{
+                font-size: 2.1rem;
+                margin: 20px 0px;
+            }
+            #buttonControls{
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 1rem;
+                background-color: #222222; 
+                border-top: 1px solid #374151; 
+                display: flex;
+                justify-content: center;
+                gap: 2rem; /* space-x-8 */
+                box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5); 
+                z-index: 10;
+            }
+            .drop-space{
+                height: 90px; width: 300px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.1);
+                border: 3px solid white;
+                border-radius: 5px;
+            }
+            .drop-image{
+                max-height: 350px;
+            }
+            .draggable-option:hover{
+                cursor: pointer;
+            }
+            .option-container{
+                display: flex;
+                justify-content: space-around;
+                 padding:20px; 
+                border: 1px dashed gray;
+                border-radius: 5px;
+            }
+            @media screen and (min-width: 1200px){
+                .slide{
+                    width: 80%;
+                }
+            }
+            @media screen and (min-width: 1600px){
+                .slide{
+                    width: 70%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="slide" id='slide_1' style="display:block;">
+                <h1 class="title">Integration for Rational Function</h1>
+                <p style="text-align: center">A simple game</p>
+            </div>
+
+            <div class="slide" id="slide_2">
+                <h1 class="title">The Objective</h1>
+                <p>This game is created as a product for our Calculus 2 assignment. idk enjoy</p>
+            </div>
+
+            <div class="slide" id="slide_3">
+                <h1 class="title">Tutorial 1 !! :o</h1>
+                <p>click and drag the correct rational decomposition into the box ;-;</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{x−3}{x+2}= $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_3" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_3', 'options_container_3')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_3" class="option-container">
+                    <p id="option_B_3" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 1 + \frac{5}{(x+2)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_4">
+                <h1 class="title" style="text-align: center;">First Problem!</h1>
+                <p id ="test_1" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{7}{x^2-1}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_5">
+                <h1 class="title">First Problem! (2)</h1>
+                <p>First and foremost, we must decompose the fraction.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{7}{x^2-1} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_5" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_5', 'options_container_5')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_5" class="option-container">
+                    <p id="option_A_5" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x+1)} + \frac{B}{(x^2-1)} $$
+                    </p>
+                    <p id="option_B_5" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-1)} + \frac{B}{(x+1)} $$
+                    </p>
+                    <p id="option_C_5" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(x-1)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_6">
+                <h1 class="title">First Problem (3)</h1>
+                <p>Then, we determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(x-1)} + \frac{B}{(x+1)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_6" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_6', 'options_container_6')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_6" class="option-container">
+                    <p id="option_A_6" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{7}{2(x-1)} + \frac{7}{2(x+1)} $$
+                    </p>
+                    <p id="option_B_6" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{7}{2(x-1)} - \frac{7}{2(x+1)} $$
+                    </p>
+                    <p id="option_C_6" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{2}{7(x-1)} - \frac{2}{7(x+1)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_7">
+                <h1 class="title">First Problem (4)</h1>
+                <p>Finally, we integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{7}{2(x-1)} - \frac{7}{2(x+1)}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_7" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_7', 'options_container_7')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_7" class="option-container">
+                    <p id="option_A_7" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{7}{2} \ln\left| \frac{x + 1}{x - 1} \right| + C $$
+                    </p>
+                    <p id="option_B_7" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 7 \ln\left| \frac{x - 2}{x + 2} \right| + C $$
+                    </p>
+                    <p id="option_C_7" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{7}{2} \ln\left| \frac{x - 1}{x + 1} \right| + C$$
+                    </p>
+                </div>
+            </div>
+
+            
+            <div class="slide" id="slide_8">
+                <h1 class="title" style="text-align: center;">Problem 2</h1>
+                <p id="test_2" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{5}{x^2 + 3x + 2}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_9">
+                <h1 class="title">Problem 2 (2)</h1>
+                <p>First, factor the denominator and set up partial fractions.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{5}{x^2 + 3x + 2} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_9" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_9', 'options_container_9')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_9" class="option-container">
+                    <p id="option_A_9" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x+1)} + \frac{B}{(x+2)} $$
+                    </p>
+                    <p id="option_B_9" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-1)} + \frac{B}{(x-2)} $$
+                    </p>
+                    <p id="option_C_9" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(x+3)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_10">
+                <h1 class="title">Problem 2 (3)</h1>
+                <p>Determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(x+1)} + \frac{B}{(x+2)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_10" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_10', 'options_container_10')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_10" class="option-container">
+                    <p id="option_A_10" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{5}{(x+1)} - \frac{5}{(x+2)} $$
+                    </p>
+                    <p id="option_B_10" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{3}{(x+1)} + \frac{2}{(x+2)} $$
+                    </p>
+                    <p id="option_C_10" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{5}{(x+1)} + \frac{-5}{(x+2)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_11">
+                <h1 class="title">Problem 2 (4)</h1>
+                <p>Finally, integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{5}{x+1} - \frac{5}{x+2}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_11" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_11', 'options_container_11')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_11" class="option-container">
+                    <p id="option_A_11" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 5 \ln\left| \frac{x+1}{x+2} \right| + C $$
+                    </p>
+                    <p id="option_B_11" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln\left| \frac{x+1}{x+2} \right|^5 + C $$
+                    </p>
+                    <p id="option_C_11" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 5 \ln\left| \frac{x+2}{x+1} \right| + C$$
+                    </p>
+                </div>
+            </div>
+
+            <!---->
+            <div class="slide" id="slide_12">
+                <h1 class="title" style="text-align: center;">Problem 3</h1>
+                <p id="test_3" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{3x-1}{x^2 - x - 6}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_13">
+                <h1 class="title">Problem 3 (2)</h1>
+                <p>Factor the denominator and set up partial fractions.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{3x-1}{x^2 - x - 6} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_13" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_13', 'options_container_13')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_13" class="option-container">
+                    <p id="option_A_13" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-3)} + \frac{B}{(x+2)} $$
+                    </p>
+                    <p id="option_B_13" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x+3)} + \frac{B}{(x-2)} $$
+                    </p>
+                    <p id="option_C_13" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(x-6)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_14">
+                <h1 class="title">Problem 3 (3)</h1>
+                <p>Determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(x-3)} + \frac{B}{(x+2)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_14" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_14', 'options_container_14')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_14" class="option-container">
+                    <p id="option_A_14" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{2}{(x-3)} + \frac{1}{(x+2)} $$
+                    </p>
+                    <p id="option_B_14" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{1}{(x-3)} + \frac{2}{(x+2)} $$
+                    </p>
+                    <p id="option_C_14" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{3}{(x-3)} - \frac{1}{(x+2)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_15">
+                <h1 class="title">Problem 3 (4)</h1>
+                <p>Finally, integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{2}{x-3} + \frac{1}{x+2}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_15" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_15', 'options_container_15')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_15" class="option-container">
+                    <p id="option_A_15" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 2 \ln|x+3| + \ln|x+2| + C $$
+                    </p>
+                    <p id="option_B_15" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln\left| (x-3)^2(x+2) \right| + C $$
+                    </p>
+                    <p id="option_C_15" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln\left| \frac{(x-3)^2}{x+2} \right| + C$$
+                    </p>
+                </div>
+            </div>
+
+            <!---->
+            <div class="slide" id="slide_16">
+                <h1 class="title" style="text-align: center;">Problem 4</h1>
+                <p id="test_4" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{4}{2x^2 + 5x + 3}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_17">
+                <h1 class="title">Problem 4 (2)</h1>
+                <p>Factor the denominator and set up partial fractions.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{4}{2x^2 + 5x + 3} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_17" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_17', 'options_container_17')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_17" class="option-container">
+                    <p id="option_A_17" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(2x+1)} + \frac{B}{(x+3)} $$
+                    </p>
+                    <p id="option_B_17" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(2x+3)} + \frac{B}{(x+1)} $$
+                    </p>
+                    <p id="option_C_17" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(2x+5)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_18">
+                <h1 class="title">Problem 4 (3)</h1>
+                <p>Determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(2x+3)} + \frac{B}{(x+1)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_18" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_18', 'options_container_18')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_18" class="option-container">
+                    <p id="option_A_18" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{8}{(2x+3)} + \frac{-4}{(x+1)} $$
+                    </p>
+                    <p id="option_B_18" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{4}{(2x+3)} + \frac{2}{(x+1)} $$
+                    </p>
+                    <p id="option_C_18" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{-8}{(2x+3)} + \frac{8}{(x+1)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_19">
+                <h1 class="title">Problem 4 (4)</h1>
+                <p>Finally, integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{8}{2x+3} - \frac{4}{x+1}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_19" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_19', 'options_container_19')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_19" class="option-container">
+                    <p id="option_A_19" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 4 \ln|2x+3| - 4 \ln|x+1| + C $$
+                    </p>
+                    <p id="option_B_19" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 8 \ln|2x+3| - 4 \ln|x+1| + C $$
+                    </p>
+                    <p id="option_C_19" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ 4 \ln\left| \frac{2x+3}{x+1} \right| + C$$
+                    </p>
+                </div>
+            </div>
+
+            <!---->
+            <div class="slide" id="slide_20">
+                <h1 class="title" style="text-align: center;">Problem 5</h1>
+                <p id="test_5" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{x+7}{x^2 - 4}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_21">
+                <h1 class="title">Problem 5 (2)</h1>
+                <p>Factor the denominator and set up partial fractions.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{x+7}{x^2 - 4} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_21" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_21', 'options_container_21')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_21" class="option-container">
+                    <p id="option_A_21" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-2)} + \frac{B}{(x+2)} $$
+                    </p>
+                    <p id="option_B_21" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-4)} + \frac{B}{(x+1)} $$
+                    </p>
+                    <p id="option_C_21" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(x-4)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_22">
+                <h1 class="title">Problem 5 (3)</h1>
+                <p>Determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(x-2)} + \frac{B}{(x+2)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_22" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_22', 'options_container_22')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_22" class="option-container">
+                    <p id="option_A_22" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{2.25}{(x-2)} + \frac{-1.25}{(x+2)} $$
+                    </p>
+                    <p id="option_B_22" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{9/4}{(x-2)} + \frac{-5/4}{(x+2)} $$
+                    </p>
+                    <p id="option_C_22" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{5/4}{(x-2)} + \frac{-9/4}{(x+2)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_23">
+                <h1 class="title">Problem 5 (4)</h1>
+                <p>Finally, integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{9/4}{x-2} - \frac{5/4}{x+2}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_23" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_23', 'options_container_23')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_23" class="option-container">
+                    <p id="option_A_23" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{9}{4} \ln|x-2| - \frac{5}{4} \ln|x+2| + C $$
+                    </p>
+                    <p id="option_B_23" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{1}{4} \ln\left| \frac{(x-2)^9}{(x+2)^5} \right| + C $$
+                    </p>
+                    <p id="option_C_23" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln\left| \frac{x-2}{x+2} \right|^{1/4} + C$$
+                    </p>
+                </div>
+            </div>
+
+            <!---->
+            <div class="slide" id="slide_24">
+                <h1 class="title" style="text-align: center;">Problem 6</h1>
+                <p id="test_6" class="subtitle">
+                    Integrate
+                    $$\int \dfrac{2x-3}{x^2 - 5x + 6}\,dx \nonumber $$
+                </p>
+            </div>
+
+            <div class="slide" id="slide_25">
+                <h1 class="title">Problem 6 (2)</h1>
+                <p>Factor the denominator and set up partial fractions.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$\dfrac{2x-3}{x^2 - 5x + 6} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_25" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_25', 'options_container_25')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_25" class="option-container">
+                    <p id="option_A_25" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x-2)} + \frac{B}{(x-3)} $$
+                    </p>
+                    <p id="option_B_25" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{(x+2)} + \frac{B}{(x+3)} $$
+                    </p>
+                    <p id="option_C_25" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{A}{x} + \frac{B}{(x-5)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_26">
+                <h1 class="title">Problem 6 (3)</h1>
+                <p>Determine the values of A and B.<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \frac{A}{(x-2)} + \frac{B}{(x-3)} = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_26" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_26', 'options_container_26')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_26" class="option-container">
+                    <p id="option_A_26" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{1}{(x-2)} + \frac{1}{(x-3)} $$
+                    </p>
+                    <p id="option_B_26" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{-1}{(x-2)} + \frac{3}{(x-3)} $$
+                    </p>
+                    <p id="option_C_26" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \frac{3}{(x-2)} + \frac{-1}{(x-3)}$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="slide" id="slide_27">
+                <h1 class="title">Problem 6 (4)</h1>
+                <p>Finally, integrate!<br>Drag the correct answer into the box:</p>
+                
+                <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+                    <p style="font-size: 24px; margin-right: 20px;">
+                        $$ \int \frac{1}{x-2} + \frac{1}{x-3}\,dx = $$
+                    </p>
+                    <div class="drop-space" id="answer_drop_target_27" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
+                        <p class="placeholder-text" style="font-size: 16px; color: gray;">Drop Answer Here</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <button class="reset" onclick="resetAnswer('answer_drop_target_27', 'options_container_27')">Reset Answer</button>
+                </div>
+
+                <div id="options_container_27" class="option-container">
+                    <p id="option_A_27" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln|(x-2)(x-3)| + C $$
+                    </p>
+                    <p id="option_B_27" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln|x-2| + \ln|x-3| + C $$
+                    </p>
+                    <p id="option_C_27" class="draggable-option" draggable="true" ondragstart="dragstartHandler(event)">
+                        $$ \ln\left| \frac{x-2}{x-3} \right| + C$$
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="buttonControls">
+            <button class="prev" onclick="prev_slide()">Back</button>
+            <button class="next" onclick="next_slide()">Continue</button>
+        </div>
+    </body>
+    <script>
+        let currentSlideIndex = 0;
+        let slides = [];
+        let nextBtn;
+        let prevBtn;
+        let checked = false;
+        let slidesWithQuestions = [4,5,6,8,9,10,12,13,14,16,17,18,20,21,22,24,25,26];
+        let keys = {
+            4: 'B',
+            5: 'B',
+            6: 'C',
+            8: 'A',
+            9: 'C',
+            10: 'A',
+            12: 'A',
+            13: 'A',
+            14: 'B',
+            16: 'B',
+            17: 'A',
+            18: 'C',
+            20: 'A',
+            21: 'B',
+            22: 'A',
+            24: 'A',
+            25: 'A',
+            26: 'A'
+        };
+
+        const originalParents = {};
+        
+        window.onload = function() {
+            slides = document.querySelectorAll('.slide');
+            document.querySelectorAll('.draggable-option').forEach(el => {
+                // note: the parent of the option is the ID of the options container
+                originalParents[el.id] = el.parentNode.id;
+            });
+            nextBtn = document.querySelector('.next'); 
+            prevBtn = document.querySelector('.prev'); 
+
+            updateUI();
+        };
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                const isCurrent = index === currentSlideIndex;
+                slide.style.display = isCurrent ? 'block' : 'none';
+                if (isCurrent) {
+                    setTimeout(() => { slide.style.opacity = '1'; }, 10);
+                } else {
+                    slide.style.opacity = '0';
+                }
+            });
+            if (prevBtn) {
+                prevBtn.style.visibility = currentSlideIndex === 0 ? 'hidden' : 'visible';
+            }
+            if (nextBtn) {
+                nextBtn.style.visibility = currentSlideIndex === slides.length - 1 ? 'hidden' : 'visible';
+            }
+        }
+        function next_slide() {
+            if (currentSlideIndex < slides.length - 1) {
+                if (slidesWithQuestions.includes(currentSlideIndex)) {
+                    if (!checked) {
+                        const htmlIdNumber = currentSlideIndex + 1;
+                        const dropTargetId = "answer_drop_target_" + htmlIdNumber;
+                        const dropTarget = document.getElementById(dropTargetId);
+                        const droppedOption = dropTarget ? dropTarget.querySelector('.draggable-option') : null;
+                        if (droppedOption) {
+                            const answerLetter = droppedOption.id.charAt(7); 
+                            if (answerLetter === keys[currentSlideIndex]) {
+                                console.log("Correct");
+                                dropTarget.style.border = "3px solid green";
+                            } else {
+                                console.log("Incorrect");
+                                dropTarget.style.border = "3px solid red";
+                            }
+                            checked = true;
+                            return; 
+                        } else {
+                            alert("do put an answer in the box before proceeding");
+                            return;
+                        }
+                    }
+                }
+                if (slidesWithQuestions.includes(currentSlideIndex)) {
+                    const htmlIdNumber = currentSlideIndex + 1;
+                    const prevDropTargetId = "answer_drop_target_" + htmlIdNumber;
+                    const prevDropTarget = document.getElementById(prevDropTargetId);
+                    if (prevDropTarget) {
+                        prevDropTarget.style.border = "3px solid white";
+                    }
+                }
+                currentSlideIndex++;
+                updateUI();
+                checked = false; 
+            }
+        }
+        
+        function prev_slide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateUI();
+            }
+        }
+        
+        function dragstartHandler(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.target.classList.add('dragging');
+        }
+        
+        function dragoverHandler(ev) {
+            ev.preventDefault();
+        }
+        
+        function dropHandler(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            const dropTarget = ev.currentTarget; 
+            if (dropTarget.querySelector('.draggable-option')) {
+                return; 
+            }
+
+            const placeholder = dropTarget.querySelector('.placeholder-text');
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            draggedElement.classList.remove('dragging');
+            dropTarget.appendChild(draggedElement);
+        }
+
+        function resetAnswer(dropTargetId, optionsContainerId) {
+            const dropTarget = document.getElementById(dropTargetId);
+            const droppedElement = dropTarget.querySelector('.draggable-option');
+            if (droppedElement) {
+                const originalParentId = originalParents[droppedElement.id];
+                const originalParent = document.getElementById(originalParentId);
+                if (originalParent) {
+                    originalParent.appendChild(droppedElement);
+                }
+            }
+
+            const placeholder = dropTarget.querySelector('.placeholder-text');
+            if (placeholder) {
+                 placeholder.style.display = 'block';
+            }
+        }
+    </script>
+</html>
