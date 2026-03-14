@@ -1,555 +1,89 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <title>insyhmi.io</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-        <style>
-            * {
-                margin: 0px;
-                color: white;
-                font-family:  "Consolas", "Inconsolata" ;
-                box-sizing: border-box;
-                margin: 10px 0px;
-            }
-            body {
-                background-color : rgb(44, 44, 44);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center
-            }
-            #main{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 50%;
-            }
-            #tooltip{
-                margin-top: 20px;
-                font-size: 17px;
-                overflow: visible;
-                white-space: nowrap;
-            }
-            h1{
-                font-size: 40px;
-            }
-            p{
-                line-height: 1.5;
-            }
-            #main_header_title{
-                text-align: center;
-            }
-            #main_header_picture{
-                width: 140px;
-                height: 140px;
-                border-radius: 50%;
-                background-color: white;
-                box-shadow: 0px 0px 25px rgba(255,255,255, 0.2);
-            }
-            #main_header_social_media{
-                display: flex;
-            }
-            #i{
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-                border-radius: 50%;
-                display: block;
-                object-fit: cover;
-            }
-            hr{
-                width: 100%;
-                margin: 5px;
-            }
-            .inline-code{
-                background-color: #323232;
-                border-radius: 4px;
-                border: 2px solid #5e5e5e;
-                font-weight: bold;
-                font-family: "SFMono-Regular", "Consolas", "Inconsolata";
-                padding: 0.15em 0.3em;
-                color: #0ed1c1;  
-                text-align: center
-            }
-            .button-icon{
-                background-color: rgba(0,0,0,0);
-                border: none;
-                padding: 0px;
-                margin: 0px 7px;
-            }
-            .icon{
-                height: 32px;
-                width: 32px;
-                font-size: 32px;
-                text-align: center;
-            }
-            p a{
-                display: inline;
-            }
-            .icon-linkedin, .icon-leetcode{
-                color: white;
-            }
-            .button-icon:hover{
-                cursor: pointer;
-            }
-            .button-icon:hover .icon-linkedin{
-                color: #0a5fe9;
-            }
-            .button-icon:hover .icon-leetcode{
-                stroke: #E7A41F;
-            }
-            .button-icon:hover .icon-youtube{
-                color: #e53434;
-            }
-            .button-icon:hover .icon-tiktok{
-                color: #000;
-                text-shadow: -1px 0 #ee1d52, 0 1px #69c9d0, 1px 0 #69c9d0, 0 -1px #69c9d0;
-            }
-            .button-icon:hover .icon-github{
-                color: #4078c0;
-            }
-            .icon-hackerrank:hover{
-                fill: #46e71e;
-            }
-            .icon-codeforces:hover .codeforces-bar-1{
-                fill: #fff200;
-            }
-            .icon-codeforces:hover .codeforces-bar-2{
-                fill: #0066ff;
-            }
-            .icon-codeforces:hover .codeforces-bar-3{
-                fill: #d01205;
-            }
-            .button-icon:hover .icon-x{ 
-                color:black;
-                background-color: rgba(255, 255, 255, 0.815);
-                box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.815);
-            }
-            #body_main, #body_project, #gists{
-                width: 90%;
-            }
-            #body_main p, #body_main h2{
-                margin: 20px 0;
-            }
-            .body_project_child{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-            }
-            .body_project_child:hover{
-                cursor: pointer;
-            }
-            .body_project_child:hover .project-title{
-                text-decoration: underline;
-            }
-            .body_project_child_thumbnail{
-                height: 100px;
-                min-width: 100px;
-                max-width: 100px;
-            }
-            .body_project_child_thumbnail img{
-                height: 100%;
-                width: 100%;
-                object-fit: contain;
-                display: block;
-                margin: 0px;
-                border-radius: 4px;
-            }
-            .body_project_child_main{
-                padding: 0px 0px 0px 30px;
-                display: flex;
-                flex-direction: column;
-            }
-            #button_body_container{
-                display:flex;
-                flex-wrap:wrap;
-            }
-            #button_body_container button{
-                background-color: transparent;
-                border: none;
-                border-bottom: 2px solid white;
-                color: white;
-                padding: 15px 40px;
-                text-align: center;
-                text-decoration: none;
-                font-size: 16px;
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-            #button_body_container button:hover{
-                color : rgb(44, 44, 44);
-                background-color: white;
-            }
-            @media screen and (max-width: 768px){
-                #main{
-                    width: 95%;
-                }
-                #tooltip{
-                    white-space: normal;
-                }
-                #body_main h2, p{
-                    line-height: 1.6;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div id="main">
-            <div id="main_header_picture">
-                <img src="assets/i.jpg" id="i">
-            </div>
-            <div id="main_header_title">            
-                <h1>insyhmi.io</h1>
-                <h3 id="tooltip"></h3>
-            </div>
-            <div id="main_header_social_media">
-                <a href="https://www.linkedin.com/in/idlan-syahmi/" target="_blank">
-                    <button class="button-icon">
-                        <!--Linkedin-->
-                        <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
-                    </button>   
-                </a>
+	<head>
+		<title>Graph</title>
+		<meta charset = "utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="cytoscape.min.js"></script>
+		<script src="https://kit.fontawesome.com/a7a47eb1cc.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="modal" id="ModalVertex">
+			<div class="modal-content">
+				<span id="VertexModalClose" onclick="close_add_vertex_window()">
+					<i class="fa-solid fa-square-xmark"></i>
+				</span>
+				<h2>Add Vertex</h2>
+				<p>Vertex ID: </p>
+				<input id="vertex-id">
+				<button id="add-vertex-button">Add Vertex</button>
+				<div class="errorspan" id="add-vertex-error"></div>
+			</div>
+		</div>
 
-                <a href="https://leetcode.com/u/lnxhm1/" target="_blank">
-                    <button class="button-icon">
-                        <!--Leetcode-->
-                        <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
-                            <path d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373"/>
-                            <path d="M18.7571,13.41,27.7647,4.5"/>
-                            <path d="M19.5838,27.5918h21.49"/>
-                        </svg>
-                    </button>
-                </a>
+		<div class="modal" id="ModalEdge">
+			<div class="modal-content">
+				<span id="EdgeModalClose" onclick="close_add_edge_window()">
+					<i class="fa-solid fa-square-xmark"></i>
+				</span>
+				<h2>Add Edge</h2>
+				<p>Source: </p>
+				<input id="edge-source">
+				<p>Target: </p>
+				<input id="edge-target">
+				<p>Weight: </p>
+				<input id="edge-weight">
+				<button id="add-edge-button">Add Edge</button>
+				<div class="errorspan" id="add-edge-error"></div>
+			</div>
+		</div>
+		<div id = "cy">
+			<!--The main panel-->
+		</div>
+		<div id = "controls">
+			<h1>Dijkstra algorithm simulation</h1>
+			<h4>by <a href="https://insyhmi.github.io/" target="_blank" style="color:white">insyhmi</a></h4>
 
-                <a href="https://www.youtube.com/@lnxhm1" target="_blank">
-                    <button class="button-icon"> 
-                        <!--Youtube-->
-                        <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
-                    </button>
-                </a>
+			<input type="checkbox" id="directed-checkbox"> 
+			<label for="directed-checkbox">Directed graph</label>
+			<h2>Vertices</h2>
+			<div id='vertices-menu'>
+				<div>
+					Starting Vertex: <input id='starting-vertex'>
+				</div>
+				<div>
+					<button onclick="open_add_vertex_window()">Add Vertex</button>
+				</div>
+				<!--Template HTML in script-->
+			</div>
+			
+			<h2>Edges</h2>
+			<div id='edges-menu'>
+				<div>
+					<button onclick="open_add_edge_window()">Add Edge</button>
+				</div>
+				<!--Template HTML in script-->				
+			</div>
+			<div id='control-buttons'>
+				<label for="speed" id="speed-label">Speed: 1x</label>
+				<input id="speed" type="range" step="0.1" min="0.1" max="2" value="1">
+				<button id="run">Run Simulation</button>
+				<button id="reset">Reset Graph</button>
+				<button id="fit-view">Fit View</button>
+			</div>
 
-                <a href="https://www.tiktok.com/@lnxhm1?lang=en" target="_blank">
-                    <button class="button-icon">
-                        <!--Tiktok-->
-                        <i class="fa-brands fa-tiktok icon icon-tiktok"></i>
-                    </button>
-                </a>
+			<h2>Result distances</h2>
 
-                <a href="https://github.com/insyhmi" target="_blank">
-                    <button class="button-icon">
-                        <!--Github-->
-                        <i class="fa-brands fa-github icon icon-github"></i>
-                    </button>
-                </a>
-
-                <a href = "https://www.hackerrank.com/profile/net15_harry" target="_blank">
-                    <button class="button-icon">
-                        <!-- Hackerrank-->
-                        <svg class="icon icon-hackerrank" viewBox="0 0 32 32" fill="white">
-                            <path d="M16 0c1.714 0 13 6.516 13.854 8 0.859 1.484 0.859 14.516 0 16s-12.141 8-13.854 8c-1.714 0-13-6.516-13.859-8-0.854-1.484-0.854-14.516 0-16 0.859-1.484 12.146-8 13.859-8zM19.063 9.068c-0.193 0-0.349 0.151-0.349 0.344v5.167h-5.427v-5.37h0.932c0.188 0 0.339-0.151 0.339-0.344 0-0.125-0.068-0.234-0.161-0.292l-2.099-2.010c-0.063-0.089-0.188-0.146-0.302-0.146-0.109 0-0.214 0.057-0.276 0.141l-2.24 2.016c-0.094 0.063-0.161 0.167-0.161 0.292 0 0.188 0.151 0.344 0.344 0.344h0.938l0.010 13.38c0 0.193 0.146 0.344 0.339 0.344h1.99c0.188 0 0.344-0.151 0.344-0.344v-5.339h5.432v5.536h-0.932c-0.193 0-0.344 0.156-0.344 0.344 0 0.125 0.068 0.234 0.161 0.292l2.104 2.016c0.057 0.083 0.188 0.146 0.302 0.146s0.208-0.063 0.276-0.146l2.24-2.016c0.094-0.057 0.161-0.167 0.161-0.292 0-0.188-0.156-0.344-0.344-0.344h-0.938l-0.010-13.375c0-0.198-0.151-0.349-0.339-0.349h-1.99z"/>
-                        </svg>
-                    </button>
-                </a>
-
-                <a href="https://codeforces.com/profile/lnxhm1" target="_blank">
-                    <button class="button-icon">
-                        <!-- Codeforces-->
-                        <svg class="icon icon-codeforces" viewBox="0 0 24 24" fill="currentColor">
-                            <path class="codeforces-bar-1" d="M4.5 7.5A1.5 1.5 0 0 1 6 9v10.5A1.5 1.5 0 0 1 4.5 21h-3C.673 21 0 20.328 0 19.5V9c0-.828.673-1.5 1.5-1.5h3z"/>
-                            <path class="codeforces-bar-2" d="M13.5 3A1.5 1.5 0 0 1 15 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-3c-.827 0-1.5-.672-1.5-1.5v-15c0-.828.673-1.5 1.5-1.5h3z"/>
-                            <path class="codeforces-bar-3" d="M22.5 12A1.5 1.5 0 0 1 24 13.5v6a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5v-6a1.5 1.5 0 0 1 1.5-1.5h3z"/>
-                        </svg>
-                    </button>
-                </a>
-
-                <a href="https://x.com/lnxhm1" target="_blank">
-                    <button class="button-icon">
-                        <!--Twitter X-->
-                        <i class="fa-brands fa-x-twitter icon icon-x"></i>
-                    </button>
-                </a>
-
-
-            </div>
-            <hr>
-            <div id="body_main">
-                <h2>Hi!</h2>
-                <p>
-                    I'm Lan. <span id="age"></span>. M. 🇲🇾 . CS student @ INTEC (and a prospecting AUS uni undergrad).<br />
-                    I like maths, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
-                    Data science and cybersecurity interest me, but I'll let fate decide the best for me.<br />
-                    I do video editing, too! I usually posted my creations on Youtube, but who knows where it can also appear. <br />
-                </p>
-            </div>
-            <div id="button_body_container">
-                <button id="toggle_project" onmouseup="show_project();" style="color: rgb(44, 44, 44); background-color: white;">Projects</button>
-                <button id="toggle_gists" onmouseup="show_gists();">Gists</button>
-            </div>
-            <div id="body_project">
-                <h2>Projects</h2>
-                <table>
-                    <tr><th></th><th></th></tr>
-                    
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/dijkstra', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/dijkstra.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Dijkstra Algorithm Simulation
-                            </div>
-                            <div class="project_description">
-                                Dijkstra algoritm simulation website
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('integration rational function.html', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/integration.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Integration for Rational Function Game
-                            </div>
-                            <div class="project_description">
-                                Calculus 2 Assignment 1 Project for game.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/crafting-calculator', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/mc-crafting.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Crafting Calculator
-                            </div>
-                            <div class="project_description">
-                                A Python application to calculate the required ingredients for a specified item in Minecraft.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/lanx-nonogram', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/nonogram.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Lanx's Nonogram
-                            </div>
-                            <div class="project_description">
-                                My own iteration of Nonogram.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/lanxs-minesweeper', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/minesweeper.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Lanx's Minesweeper
-                            </div>
-                            <div class="project_description">
-                                My own iteration of the infamous roomba amusement using Python Pygame library.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/pos-system', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/pos.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                POS System       
-                            </div>
-                            <div class="project_description">
-                                Point of Sale System
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/monyet-python', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/sisyphus.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Sisyphus by Monyet Python      
-                            </div>
-                            <div class="project_description">
-                                Winning Application of InHacks Hackathon 2025.
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/insyhmi/waktu_solat', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/waktu solat.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Waktu Solat       
-                            </div>
-                            <div class="project_description">
-                                A desktop application that provides local prayer time in Malaysia using PyQt6
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onmouseup="window.open('https://github.com/code50/187157137', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/CS50AI.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                CS50 AI       
-                            </div>
-                            <div class="project_description">
-                                My projects during CS50 AI learning.
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onmouseup="window.open('https://test-soalanspm.42web.io', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://test-soalanspm.42web.io/icon.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Rubisco Bank Soalan SPM       
-                            </div>
-                            <div class="project_description">
-                                A website I created for fun to host questions from multiple past papers in an interactive way
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onmouseup="window.open('https://drive.google.com/file/d/1vDgBsSV2inUlXNVbbh6k1wljMnyrJik2/view?usp=sharing', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/eco.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Project ECO      
-                            </div>
-                            <div class="project_description">
-                                A game that I programmed for a team competition hosted by CETREE from Universiti Sains Malaysia (USM)
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/perkasa.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Library Management Software       
-                            </div>
-                            <div class="project_description">
-                                I created a web-based library management software which includes a plethora of features and functions for my highschool
-                            </div>
-                        </td>
-                    </tr>
-                    
-                </table>
-            </div>
-            <div id="gists" style="display:none;">
-                <h2>Gists</h2>
-                <p>
-                    Gists are code files that I worked on but doesn't count as a full independent project. Most of them are scripts used to test
-                    certain functionalities and/or logics before being implemented, but they are too complex to be called a throwaway test script. 
-                    Besides, it's not worth creating a separate repo to host all of the files if <span class="inline-code">gists.com</span> already exists, so feel free to look into it.<br/>
-                </p>
-                <table>
-                    <tr><th></th><th></th></tr>
-                    <tr class="body_project_child" onmouseup="window.open('https://gist.github.com/insyhmi?direction=desc&sort=updated', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://avatars.githubusercontent.com/u/187157137?v=4">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                insyhmi's Github Gist
-                            </div>
-                            <div class="project_description">
-                                insyhmi's Github Gist
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </body>
-    <script>
-        function show_gists(){
-            document.getElementById("toggle_project").removeAttribute("style");
-            document.getElementById("toggle_gists").style.backgroundColor = "white";
-            document.getElementById("toggle_gists").style.color = "rgb(44, 44, 44)";
-            document.getElementById("gists").style.display = "block";
-            document.getElementById("body_project").style.display = "none";
-        }
-        function show_project(){
-            document.getElementById("toggle_gists").removeAttribute("style");
-            document.getElementById("toggle_project").style.backgroundColor = "white";
-            document.getElementById("toggle_project").style.color = "rgb(44, 44, 44)";
-            document.getElementById("gists").style.display = "none";
-            document.getElementById("body_project").style.display = "block";
-            
-        }
-        const currentDate = new Date();
-        document.getElementById("age").innerText = currentDate.getFullYear() - 2006;
-        function getRandomIntInclusive(max) {
-            max = Math.floor(max);
-            return Math.floor(Math.random() * max);
-        }
-
-        async function display(){
-            let rate = await fetchCurrency();
-            document.getElementById("tooltip").innerHTML = rate;
-            console.log(rate);
-        }
-        let tooltip_collection = [
-            "my kewl webs site !!1",
-            "helo wolrd !",
-            "proficient in Malay, English, and C++",
-            "Hank! Don't abbreviate competitive programming! Hank!",
-            "Do not abbreviate cummulative_weights for Python's random.choices() method",
-            "Better than a master of one.",
-            "the existance of C++ implies the existance of C--",
-            "This is an <span class='inline-code'>inline code</span>",
-            "Playing Visual Studio Code; <span class='inline-code'>insyhmi.github.io</span> for 1 seconds",
-            ">> git commmit -m \"how to use git?\"",
-            "windows 10 is better imo",
-            "So called adventerous, yet doesnt know about -fpermissive.",
-            "segfaulter",
-            "My favorite tree is segment tree",
-            "a minesweeper fan",
-            "chat am i cooked",
-            "usyd or unsw?",
-            "🎵 腐蝕ルサンチマン",
-            "i prob need a better pic",
-            "+61"
-        ];
-        let tooltip_length = tooltip_collection.length;
-        let i = getRandomIntInclusive(tooltip_length);
-        document.getElementById("tooltip").innerHTML = tooltip_collection[i];
-    </script>
+			<div id="result">
+				<table id="result-table">
+					<tr>
+						<th>Node</th>
+						<th>Distance</th>
+					</tr>
+				</table> 
+			</div>
+		</div>
+	</body>
+	<script src="script.js"></script> 
 </html>
-
-
-
-
-
-
