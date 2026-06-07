@@ -27,10 +27,7 @@
         const linkDiv = document.getElementById("link");
         generateButton.addEventListener("click", () => {
             document.getElementById("qrcode").innerHTML="";
-            const payload = {
-                "table" : 1,
-                "timestamp" : Date.now()
-            }
+            const payload = `{"table" : 1, "timestamp" : ${Date.now()}}`
             const encode = btoa(payload);
             const l = `https://lanx-restaurant-system-v1.vercel.app/?q=${encode}`;
             new QRCode(document.getElementById("qrcode"), l);
