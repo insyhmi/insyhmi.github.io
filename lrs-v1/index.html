@@ -29,7 +29,7 @@
             document.getElementById("qrcode").innerHTML="";
             const payload = {
                 "table" : 1,
-                "timestamp" : Date.now().toString()
+                "timestamp" : Date.now()
             }
             const encode = btoa(payload);
             const l = `https://lanx-restaurant-system-v1.vercel.app/?q=${encode}`;
