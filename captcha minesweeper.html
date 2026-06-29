@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=bomb,flag_2" />
+	<title>a</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background: #f0f0f0;
+			font-family: "Roboto", sans-serif;
+		}
+
+		.captcha-box {
+			width: 300px;
+			border: 1px solid #c1c1c1;
+			border-radius: 4px;
+			background: #f9f9f9;
+			padding: 16px;
+			font-family: Arial, sans-serif;
+			box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.12);
+		}
+
+		.captcha-inner {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+		}
+
+		.captcha-checkbox {
+			width: 24px;
+			height: 24px;
+			border: 2px solid #c1c1c1;
+			border-radius: 2px;
+			background: #fff;
+			cursor: pointer;
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: border-color 0.15s;
+		}
+
+		.captcha-checkbox:hover {
+			border-color: #4a90d9;
+		}
+
+		.captcha-checkbox.checked {
+			border-color: #4a90d9;
+			background: #fff;
+		}
+
+		.captcha-checkbox svg {
+			display: none;
+		}
+
+		.captcha-checkbox.checked svg {
+			display: block;
+		}
+
+		.captcha-label {
+			font-size: 14px;
+			color: #333;
+			user-select: none;
+			cursor: pointer;
+		}
+
+		.captcha-logo-area {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-left: auto;
+			gap: 2px;
+		}
+
+		.captcha-logo-area img {
+			width: 25px;
+			height: 25px;
+		}
+
+		.captcha-brand {
+			font-size: 8px;
+			color: #999;
+			letter-spacing: 0.3px;
+			text-align: center;
+			line-height: 1.3;
+		}
+
+		.captcha-footer {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 8px;
+			padding-top: 8px;
+			border-top: 1px solid #e0e0e0;
+			gap: 10px;
+		}
+
+		.captcha-footer a {
+			font-size: 9px;
+			color: #999;
+			text-decoration: none;
+		}
+
+		.captcha-footer a:hover {
+			text-decoration: underline;
+		}
+
+		.spinner {
+			display: none;
+			width: 20px;
+			height: 20px;
+			border: 2px solid #ccc;
+			border-top-color: #4a90d9;
+			border-radius: 50%;
+			animation: spin 0.6s linear infinite;
+			flex-shrink: 0;
+		}
+
+		.spinner.show {
+			display: block;
+		}
+
+		@keyframes spin {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+
+		#gameWindow {
+			border: 1px solid #dddddd;
+			position: absolute;
+			z-index: 3;
+			opacity: 0;
+			transition: opacity 0.5s ease, visibility 0.5s;
+			background-color:
+				#dddddd;
+			visibility: hidden;
+		}
+
+		#gameWindow.show {
+			opacity: 1;
+			visibility: visible;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			-webkit-box-shadow: 0px 0px 18px 1px #AFAFAF;
+			box-shadow: 0px 0px 18px 1px #AFAFAF;
+		}
+
+		.game-window {
+			width: 100%;
+			border: 1px solid #c1c1c1;
+			border-radius: 4px;
+			background: #f9f9f9;
+			box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+		}
+
+		.game-header {
+			background: #4a76d8;
+			color: #fff;
+			padding: 15px 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.game-header .title {
+			font-weight: 900;
+			letter-spacing: 0.4px;
+			font-size: 25px;
+		}
+
+		.game-header .subtitle {
+			margin-top: 2px;
+		}
+
+		.game-stats {
+			display: flex;
+			justify-content: space-between;
+			padding: 8px 14px;
+			font-size: 12px;
+			color: #555;
+			border-bottom: 1px solid #e0e0e0;
+			background: #fff;
+		}
+
+		.stat {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.stat-val {
+			font-weight: 700;
+			color: #333;
+		}
+
+		.board-wrap {
+			padding: 10px;
+			background: #f9f9f9;
+			display: flex;
+			justify-content: center;
+		}
+
+		#boardGrid {
+			display: grid;
+			grid-template-columns: repeat(15, 1fr);
+			grid-template-rows: repeat(15, 1fr);
+			gap: 1px;
+			width: min(550px, 90vw);
+			aspect-ratio: 1 / 1;
+		}
+
+		.cell {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			border: none;
+			background: #dcdcdc;
+			font-family: monospace;
+			font-size: 19px;
+			font-weight: 600;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background 0.1s;
+			-webkit-tap-highlight-color: transparent;
+			touch-action: manipulation;
+		}
+
+		.cell:hover {
+			background: #c8c8c8;
+		}
+
+		.cell:active {
+			background: #b8b8b8;
+		}
+
+		.cell.opened {
+			background: #fff;
+			border: 1px solid #e0e0e0;
+			cursor: default;
+			color: #333;
+		}
+
+		.game-footer {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 5px 14px 15px;
+			background: #fff;
+		}
+
+		.footer-hint {
+			font-size: 10px;
+			color: #999;
+		}
+
+		.footer {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 2px;
+		}
+
+		.brand-logo {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 2px;
+			width: 20px;
+			height: 20px;
+			margin-left: auto;
+		}
+
+		.brand-text {
+			font-size: 8px;
+			color: #aaa;
+			text-align: right;
+		}
+
+		.footer-links {
+			display: flex;
+			gap: 8px;
+			margin-top: 10px;
+		}
+
+		.footer-links a {
+			font-size: 11px;
+			color: #aaa;
+			text-decoration: none;
+		}
+
+		.material-symbols-outlined {
+			font-size: 25px;
+			user-select: none;
+			pointer-events: none;
+		}
+
+		.flag {
+			color: #d205da;
+		}
+
+		.mine {
+			color: #da0525;
+		}
+
+		.submit-wrap {
+			padding: 8px 14px 0px;
+			display: flex;
+			justify-content: flex-end;
+			border-top: 1px solid #e0e0e0;
+			background-color: #fff;
+		}
+
+		.submit-btn {
+			background: #4a76d8;
+			color: #fff;
+			border: none;
+			border-radius: 2px;
+			padding: 8px 20px;
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 0.4px;
+			cursor: pointer;
+			transition: background 0.15s, box-shadow 0.15s;
+		}
+
+		.submit-btn:hover {
+			background: #3a66c8;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+		}
+
+		.submit-btn:active {
+			background: #2a56b8;
+			box-shadow: none;
+		}
+
+		.submit-btn:disabled {
+			background: #c1c1c1;
+			cursor: not-allowed;
+			box-shadow: none;
+		}
+
+		@media screen and (max-width: 768px) {
+			.cell {
+				font-size: 13px;
+				overflow: hidden;
+			}
+
+			.material-symbols-outlined {
+				font-size: 13px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="captcha-box">
+		<div class="captcha-inner">
+			<div class="captcha-checkbox" id="cb" onclick="toggle()" role="checkbox" aria-checked="false"
+				aria-label="I am not a robot">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+					<polyline points="2,7 5.5,11 12,3" stroke="#4a90d9" stroke-width="2.2" stroke-linecap="round"
+						stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="spinner" id="sp"></div>
+			<span class="captcha-label" onclick="toggle()">I'm not a robot</span>
+			<div class="captcha-logo-area">
+				<img src="captcha-test.png">
+				<div class="captcha-brand">reCAPTCHA<br></div>
+			</div>
+		</div>
+		<div class="captcha-footer">
+			<a href="#">Privacy</a>
+			<a href="#">Terms</a>
+		</div>
+	</div>
+
+	<div id="gameWindow">
+
+		<div class="game-window">
+			<div class="game-header">
+				<div>
+					<div class="subtitle" style="font-size: 13px">Select all squares with no</div>
+					<div class="title">mines</div>
+					<div class="subtitle" style="font-size: 15px">If there are none, you are lying.</div>
+				</div>
+				<div class="header-logo">
+					<span></span><span></span><span></span><span></span>
+				</div>
+			</div>
+			<div class="game-stats">
+				<div class="stat">Mines <span class="stat-val" id="mine-count"></span></div>
+				<div class="stat">Flags <span class="stat-val" id="flag-count">0</span></div>
+				<div class="stat"><span class="stat-val" id="timer" id="timer">01:00</span></div>
+			</div>
+			<div class="board-wrap">
+				<div id="boardGrid"></div>
+			</div>
+			<div class="submit-wrap">
+				<button class="submit-btn" id="submitBtn" disabled>Verify</button>
+			</div>
+			<div class="game-footer">
+				<div>
+					<div class="footer-hint" style="font-size: 10px;">Tap = reveal &nbsp;·&nbsp; Hold = flag</div>
+					<div class="footer-links">
+						<a href="#">MineCaptcha by Lanx</a>
+						<a href="#">Privacy</a>
+						<a href="#">Terms</a>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="brand-logo"></div>
+					<div class="brand-text">lanxCAPTCHA<br>v1.0</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		let ROWS;
+		let COLS;
+		let totalCells;
+		let MINES;
+		let flagCount = 0;
+		let win = false;
+		let isGameOver = false;
+		let allowClick = true;
+
+		const DIRECTIONS = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
+		const NUMBER_COLOR = ["#0000FF", "#27E805", "#9B0000", "#FF00FF", "#C4B100", "#00FFFF", "#C7A77A", "#6BCFCF", "#8BC681"];
+		const FLAG = '<span class="material-symbols-outlined flag">flag_2</span>';
+		const MINE = '<span class="material-symbols-outlined mine">bomb</span>';
+
+		const timerElement = document.querySelector("#timer");
+		let captchaState = 'idle';
+		const cb = document.getElementById('cb');
+		const gameWindow = document.querySelector("#gameWindow");
+		const boardGrid = document.querySelector("#boardGrid");
+		const submitBtn = document.querySelector("#submitBtn");
+		let board;
+		let mines;
+		let openedCells;
+		let flaggedCells;
+		let interval;
+
+		function init() {
+			ROWS = getRandomIntInclusive(9, 16);
+			COLS = ROWS;
+			totalCells = ROWS * COLS;
+			MINES = Math.round(getRandomIntInclusive(
+				Math.floor(totalCells * 0.14),
+				Math.floor(totalCells * 0.20)
+			));
+			board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+			mines = new Set();
+			openedCells = new Set();
+			flaggedCells = new Set();
+			flagCount = 0;
+			isGameOver = false;
+			win = false;
+
+			boardGrid.innerHTML = "";
+			const timer = Date.now() + 60000; // 1 minute from now
+			while (mines.size < MINES) {
+				const coord = `${getRandomIntInclusive(1, COLS)},${getRandomIntInclusive(1, ROWS)}`;
+				mines.add(coord);
+			}
+			document.querySelector("#mine-count").textContent = MINES;
+			mines.forEach(m => {
+				const [r, c] = m.split(",").map(Number);
+				board[r - 1][c - 1] = -1;
+				DIRECTIONS.forEach(d => {
+					const nr = r - 1 + d[0];
+					const nc = c - 1 + d[1];
+					if (nr < 0 || nr >= ROWS) return;
+					if (nc < 0 || nc >= COLS) return;
+					if (board[nr][nc] === -1) return;
+					board[nr][nc] += 1;
+				})
+			});
+			boardGrid.style.gridTemplateRows = `repeat(${ROWS}, 1fr)`;
+			boardGrid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+			for (var r = 1; r <= ROWS; r++) {
+				for (var c = 1; c <= COLS; c++) {
+					const newCell = document.createElement("button");
+					newCell.classList.add("cell");
+					newCell.dataset.row = r;
+					newCell.dataset.col = c;
+					boardGrid.appendChild(newCell);
+				}
+			}
+			interval = setInterval(() => {
+				const seconds = Math.ceil((timer - Date.now()) / 1000);
+				timerElement.textContent = `00:${String(seconds).padStart(2, '0')}`;
+				if (seconds <= 0) {
+					clearInterval(interval);
+					gameOver();
+				}
+			}, 1000);
+		}
+
+		function toggle() {
+			if (captchaState === 'idle') {
+				captchaState = 'loading';
+				document.getElementById('sp').classList.add('show');
+				cb.style["display"] = "none";
+				setTimeout(() => {
+					captchaState = 'checked';
+					document.getElementById('sp').classList.remove('show');
+					cb.setAttribute('aria-checked', 'true');
+					gameWindow.classList.add('show');
+					cb.style["display"] = "flex";
+					init();
+				}, 1500);
+			} else if (captchaState === 'checked') {
+				captchaState = 'idle';
+				cb.classList.remove('checked');
+				cb.setAttribute('aria-checked', 'false');
+			}
+		}
+
+		function open(cell) {
+			if (!allowClick) return;
+			const row = +cell.dataset.row;
+			const col = +cell.dataset.col;
+			if (openedCells.has(`${col},${row}`)) return;
+			if (flaggedCells.has(`${col},${row}`)) return;
+			totalCells--;
+			openedCells.add(`${col},${row}`);
+			cell.classList.add("opened");
+			cell.innerHTML = (board[row - 1][col - 1] === 0 ? "" : board[row - 1][col - 1]);
+			if (board[row - 1][col - 1] === -1) {
+				revealMines();
+				cell.style.backgroundColor = "black";
+				gameOver();
+				return;
+			}
+			cell.style.color = NUMBER_COLOR[board[row - 1][col - 1] - 1];
+			if (board[row - 1][col - 1] === 0) {
+				DIRECTIONS.forEach(d => {
+					const nr = row + d[0];
+					const nc = col + d[1];
+					if (nr < 1 || nr > ROWS) return;
+					if (nc < 1 || nc > COLS) return;
+					const neighbor = document.querySelector(`[data-row="${nr}"][data-col="${nc}"]`);
+					if (neighbor) open(neighbor);
+				});
+			}
+			if (totalCells == MINES) {
+				win = true;
+				gameOver();
+			}
+			document.querySelector("#submitBtn").disabled = false;
+		}
+
+		function flag(cell) {
+			if (!allowClick) return;
+			const row = +cell.dataset.row;
+			const col = +cell.dataset.col;
+			if (openedCells.has(`${col},${row}`)) return;
+			if (flaggedCells.has(`${col},${row}`)) {
+				flaggedCells.delete(`${col},${row}`);
+				cell.innerHTML = "";
+				flagCount--;
+			}
+			else {
+				flaggedCells.add(`${col},${row}`);
+				cell.innerHTML = FLAG;
+				flagCount++;
+			}
+			document.querySelector("#flag-count").textContent = flagCount;
+		}
+
+		function getRandomIntInclusive(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+
+		function gameOver() {
+			allowClick = !allowClick;
+			clearInterval(interval);
+			if (win) {
+				console.log("You win");
+				submitBtn.onclick = () => {
+					gameWindow.style.opacity = "0";
+					gameWindow.classList.remove("show");
+					cb.style["border"] = "1px transparent";
+					cb.onclick = null;
+					cb.style["background-color"] = "#f9f9f9";
+					cb.classList.add('checked');
+				}
+				return;
+			}
+			submitBtn.textContent = "Try Again";
+			submitBtn.style.backgroundColor = "red";
+			submitBtn.disabled = false;
+			submitBtn.onclick = () => {
+				submitBtn.textContent = "Verify";
+				submitBtn.style.backgroundColor = "#4a76d8";
+				submitBtn.disabled = true;
+				submitBtn.onclick = null;
+				init();
+				allowClick = !allowClick;
+			};
+		}
+
+		function revealMines() {
+			mines.forEach(
+				m => {
+					const [r, c] = m.split(",").map(Number);
+					const cell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`)
+					cell.classList.add("opened");
+					cell.innerHTML = MINE;
+				}
+			)
+		}
+
+		boardGrid.addEventListener('click', (e) => {
+			if (!e.target.classList.contains("cell")) return;
+			open(e.target);
+		});
+
+		boardGrid.addEventListener('contextmenu', (e) => {
+			event.preventDefault();
+			if (!e.target.classList.contains("cell")) return;
+			flag(e.target);
+		})
+
+
+	</script>
+</body>
+
+</html>
