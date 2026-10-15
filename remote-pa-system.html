@@ -1,0 +1,511 @@
+<html><head><style>
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  
+  /* Core Theme Colors */
+  --bg-color: #ffffff;
+  --text-color: #24292f;
+  --heading-color: #0f172a;
+  --link-color: #0969da;
+  --border-color: #d0d7de;
+  
+  /* Code & Syntax Highlight Tokens */
+  --code-bg: #f6f8fa;
+  --code-border: #e1e4e8;
+  --kbd-bg: #f3f4f6;
+  --kbd-border: #d1d5db;
+  
+  /* Blockquotes & Tables */
+  --quote-color: #57606a;
+  --quote-border: #d0d7de;
+  --table-stripe: #f6f8fa;
+  --table-hover: #f1f5f9;
+
+  /* Accent Callout Colors */
+  --note-bg: #eff6ff;
+  --note-border: #3b82f6;
+  --warning-bg: #fefce8;
+  --warning-border: #eab308;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #0d1117;
+    --text-color: #c9d1d9;
+    --heading-color: #f0f6fc;
+    --link-color: #58a6ff;
+    --border-color: #30363d;
+    
+    --code-bg: #161b22;
+    --code-border: #21262d;
+    --kbd-bg: #21262d;
+    --kbd-border: #30363d;
+    
+    --quote-color: #8b949e;
+    --quote-border: #30363d;
+    --table-stripe: #161b22;
+    --table-hover: #21262d;
+
+    --note-bg: #1e293b;
+    --note-border: #60a5fa;
+    --warning-bg: #2e2a14;
+    --warning-border: #facc15;
+  }
+}
+
+/* Base Document Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Smooth scrolling for Table of Contents links */
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings with Anchor Hover Support */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 1.75em;
+  margin-bottom: 0.75em;
+}
+
+h1 {
+  font-size: 2.25em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+h2 {
+  font-size: 1.65em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+h3 { font-size: 1.35em; }
+h4 { font-size: 1.1em; }
+h5 { font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.05em; }
+h6 { font-size: 0.85em; color: var(--quote-color); }
+
+/* Paragraphs & Links */
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* Lists & Task Lists */
+ul, ol {
+  padding-left: 2em;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+li {
+  margin-bottom: 0.35em;
+}
+
+li > ul, li > ol {
+  margin-top: 0.25em;
+  margin-bottom: 0;
+}
+
+/* Task Checkboxes (- [ ] or - [x]) */
+ul.contains-task-list {
+  list-style-type: none;
+  padding-left: 0.5em;
+}
+
+.task-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.task-list-item input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Inline & Block Code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-top: 0;
+  margin-bottom: 1.25em;
+  line-height: 1.45;
+}
+
+pre code {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-size: 100%;
+}
+
+/* Keyboard Keys (<kbd>CTRL</kbd>) */
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  background-color: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+/* Blockquotes & Callouts */
+blockquote {
+  margin: 0 0 1.25em 0;
+  padding: 0.5em 1em;
+  color: var(--quote-color);
+  border-left: 0.25em solid var(--quote-border);
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 0 6px 6px 0;
+}
+
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+
+/* Collapsible Sections (<details><summary>) */
+details {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1em;
+  background-color: var(--code-bg);
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+details[open] summary {
+  margin-bottom: 0.75em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  margin-bottom: 1.25em;
+  display: block;
+  overflow-x: auto;
+}
+
+th, td {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+th {
+  font-weight: 600;
+  background-color: var(--code-bg);
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-stripe);
+}
+
+tr:hover {
+  background-color: var(--table-hover);
+}
+
+/* Footnotes */
+.footnotes {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.875em;
+  color: var(--quote-color);
+}
+
+/* Images & Media */
+img {
+  max-width: 85%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 1em auto;
+}
+
+hr {
+  height: 2px;
+  padding: 0;
+  margin: 2rem 0;
+  background-color: var(--border-color);
+  border: 0;
+}
+
+/* Print Optimization */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #000000 !important;
+  }
+
+  pre, blockquote, table {
+    page-break-inside: avoid;
+  }
+}
+
+h1#rgs-remote-public-announcement-system {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+p#credit {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3em;
+}
+img#banner{
+  max-width: 100%;
+}
+
+</style>
+<title>RGS Remote PA System</title>
+</head><body><h1 id="rgs-remote-public-announcement-system">RGS Remote Public Announcement System</h1>
+<p id="credit">A software project by <strong><a href="https://www.linkedin.com/in/idlan-syahmi/">Idlan Syahmi Ishak</a></strong></p>
+<p>The <strong>RGS Remote Public Announcement (PA) System</strong> is a real-time audio broadcast and management system commissioned by <strong>Reigate Grammar School KL</strong>.</p>
+<p><img src="https://i.postimg.cc/XJHS3jNf/header.png" alt="Header Image" id="banner"></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-project-background">Project Background</a></li>
+<li><a href="#2-objectives">Objectives</a></li>
+<li><a href="#3-primary-features">Primary Features</a></li>
+<li><a href="#4-user-guide">User Guide</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>The RGS Remote PA System is a full-stack, client-server application designed to facilitate audio broadcasting throughout the school using the local network.</p>
+
+<p>The system runs on a dedicated host machine and outputs audio directly through connected physical PA speakers, allowing authorized users to control the school&#39;s announcement system remotely through a web browser.</p>
+<p>This software is proprietary to RGSKL, with development and maintenance responsibilities managed by me in accordance with the terms of our agreement.</p>
+<hr>
+<h1 id="1-project-background">1. Project Background</h1>
+<h3 id="1-1-limited-accessibility-to-the-pa-system">1.1 Limited Accessibility to the PA System</h3>
+<ul>
+<li>The school previously relied on a physical microphone located inside the PA room to make live announcements.</li>
+<li>Staff members had to physically walk to the PA room whenever they needed to make an announcement.</li>
+<li>This inconvenience was especially prominent for staff located far from the room.</li>
+<li>It created inefficiencies during routine and urgent broadcasts alike.</li>
+</ul>
+<h3 id="1-2-lack-of-automated-scheduling">1.2 Lack of Automated Scheduling</h3>
+<ul>
+<li>Manual broadcasting meant that every announcement had to be delivered in person, whether it was a one-time message or a recurring event.</li>
+<li>Staff requested the ability to automate announcements and schedule them in advance for specific school events.</li>
+</ul>
+<h3 id="1-3-demand-for-text-to-speech-tts-engine">1.3 Demand for Text-to-Speech (TTS) Engine</h3>
+<ul>
+<li>Staff frequently needed to make announcements using standard or recurring phrases and templates.</li>
+<li>Repeatedly recording or manually speaking these announcements was inefficient.</li>
+<li>Staff requested an integrated Text-to-Speech system to automatically generate clear announcements from predefined text.</li>
+</ul>
+<hr>
+<p>Overall, the existing PA system depended heavily on manual operation, provided limited accessibility, and lacked automation for scheduled and repetitive announcements. These limitations formulated a demand for a centralized system which allows authorized staff to remotely manage, automate, and broadcast announcements through the school&#39;s existing PA infrastructure.</p>
+<h1 id="2-objectives">2. Objectives</h1>
+<h3 id="2-1-improve-accessibility-to-the-pa-system">2.1 Improve Accessibility to the PA System</h3>
+<ul>
+<li>Develop a web-based system that allows authorized staff to remotely control and broadcast announcements through the school&#39;s PA system.</li>
+<li>Eliminate the physical barrier of needing to enter the PA room to make announcements.</li>
+</ul>
+<h3 id="2-2-automate-announcement-scheduling">2.2 Automate Announcement Scheduling</h3>
+<ul>
+<li>Implement a scheduling system that allows staff to configure one-time and recurring announcements in advance.</li>
+<li>Reduce the need for manual intervention during daily routine broadcasts.</li>
+</ul>
+<h3 id="2-3-implement-text-to-speech-tts-announcements">2.3 Implement Text-to-Speech (TTS) Announcements</h3>
+<ul>
+<li>Integrate a local Text-to-Speech (TTS) engine that generates spoken announcements directly from predefined text.</li>
+<li>Streamline standard and frequently repeated announcements using pre-saved templates.</li>
+</ul>
+
+<h1 id="3-primary-features">3. Primary Features</h1>
+<p>The primary features of this system include:</p>
+<ul>
+<li><strong>User authentications and role-based access control (RBAC)</strong></li>
+</ul>
+<p>Users log in with a username and password, and each account is assigned a role (admin/regular user) stored in the session. Role determines which settings and actions a user can access — for example, only admins can modify system-level settings or manage other users&#39; schedules.</p>
+<ul>
+<li><strong>Manage and play media files through a media queue</strong></li>
+</ul>
+<p>Uploaded audio files (WAV/MP3) are tracked in a database with metadata such as filename, uploader, and upload time. Files can be organized into a queue and played back sequentially through the server&#39;s audio output, with configurable gaps between tracks.</p>
+<ul>
+<li><strong>Live microphone audio from client in real time</strong></li>
+</ul>
+<p>A client&#39;s microphone input is captured in the browser, streamed to the server over a WebSocket connection, and played out through the server&#39;s audio device in real time — enabling live announcements to be broadcast as they&#39;re spoken.</p>
+<ul>
+<li><strong>Synthesize speech announcements using a local neural TTS engine</strong></li>
+</ul>
+<p>Text input is converted to spoken audio using <a href="https://huggingface.co/spaces/hexgrad/Kokoro-TTS" target="_blank">Kokoro TTS by hexgrad</a>, an open-weight text-to-speech engine with 82 million parameters loaded locally, with multiple voice options and an adjustable speed value. Generated announcements can optionally be previewed locally before being broadcast live.</p>
+<ul>
+<li><strong>Schedule announcements</strong></li>
+</ul>
+<p>Media queues or announcements can be scheduled to play automatically at a specific time (one-time) or on a recurring basis (via cron expressions), without requiring manual playback.</p>
+<ul>
+<li><strong>User management and system settings via an admin control panel</strong></li>
+</ul>
+<p>Administrators can create and manage user accounts, assign roles, and configure system-wide settings (audio parameters, TTS defaults, scheduling behavior, storage limits, and security settings) through a dedicated settings interface, with changes taking effect without requiring a server restart.</p>
+<ul>
+<li><strong>ISO 8601 Logging format</strong></li>
+</ul>
+<p>Server activity (including errors, warnings, and informational messages) is timestamped and written to daily log files, with each entry recorded in an ISO 8601-style format for consistent, unambiguous chronological tracking.</p>
+
+<h1 id="4-user-guide">4. User Guide</h1>
+<p>This section describes the typical workflow for using the system from the client side, including the main operations available to users.</p>
+<h2 id="4-1-signing-in">4.1 Signing In</h2>
+<p><img src="https://i.postimg.cc/DZ9XBXRX/login-scren.png" alt="Login Screen"></p>
+<ul>
+<li>At the login screen, enter the username and password assigned to the user.</li>
+<li>Press <code>Sign in</code> to access the system.</li>
+</ul>
+<h2 id="4-2-navigation">4.2 Navigation</h2>
+<p><img src="https://i.postimg.cc/kgTRLZLz/navigation.png" alt="Navigation"></p>
+<ul>
+<li>After signing in, the user will be greeted by the <code>Media Player</code> page by default.</li>
+<li>To navigate to other pages, press the menu button <code>☰</code>.</li>
+<li>Select the page that the user wishes to access.</li>
+<li>To access the system settings, press the <code>Settings</code> button <code>⚙</code>.</li>
+<li>After completing the desired tasks, press <code>Log out</code> to end the current session.</li>
+<li>There is a PA Control section at each of the control pages. </li>
+</ul>
+<p><img src="https://i.postimg.cc/tChhvBq1/pa-contorl-1.png" alt="Pa Control 1">
+<img src="https://i.postimg.cc/dVwGbG30/pa-contorl-2.png" alt="Pa Control 2"></p>
+<h2 id="4-3-media-player">4.3 Media Player</h2>
+<p><img src="https://i.postimg.cc/NFRp4YJ3/3213211.png" alt="Media Player"></p>
+<ul>
+<li>The <code>Media Player</code> page allows users to arrange and broadcast multiple audio files sequentially through the PA system.</li>
+<li>To add audio files to the queue, press <code>Add Media</code> under the <code>PA Player Controls</code>.</li>
+</ul>
+<p><img src="https://i.postimg.cc/KYVfh4dh/add-selected.png" alt="Add Selected"></p>
+<ul>
+<li>Select the desired audio files and press <code>Add Selected</code>.</li>
+</ul>
+<p><img src="https://i.postimg.cc/MG3NL6WN/reorganize-queue.gif" alt="Reorganize"></p>
+<ul>
+<li>To rearrange the queue, click and drag an audio file to the desired position.</li>
+<li>Press the <code>Play</code> button <code>▶</code> to begin broadcasting. The audio files will be played sequentially from the top of the queue to the bottom.</li>
+<li>Press the <code>Stop</code> button <code>■</code> to stop broadcasting before the queue finishes.</li>
+</ul>
+<p><img src="https://i.postimg.cc/c4rJrHzh/remove-item.gif" alt="Remove item"></p>
+<ul>
+<li>To remove an audio file from the queue, hover over the desired item and press the <code>Remove</code> button.</li>
+</ul>
+<h2 id="4-4-live-mic">4.4 Live Mic</h2>
+<p><img src="https://i.postimg.cc/4yHrRr8D/Screen-Shot-2026-08-25-at-11-22-15.png" alt="live mic"></p>
+<ul>
+<li>The <code>Live Mic</code> page allows users to broadcast real-time voice announcements from their browser through the PA system.</li>
+<li>The <code>Prequeue</code> is the media queue that will be broadcast before the microphone is connected, while the <code>Postqueue</code> is the media queue that will be broadcast after the microphone is disconnected.</li>
+<li>To add audio files to either queue, press <code>Add Media</code> under the <code>PA Player Controls</code> and select the desired queue type.</li>
+<li>Select the desired audio files and press <code>Add Selected</code>.</li>
+<li>Press the <code>Play</code> button to start the broadcasting sequence and microphone connection.</li>
+</ul>
+<p><img src="https://i.postimg.cc/HntPmdwb/allow-access.png" alt="Allow access"></p>
+<ul>
+<li>Microphone permission must be granted by the browser before live microphone broadcasting can begin.</li>
+<li>Adjust microphone gain to change the volume of the microphone.</li>
+</ul>
+<h2 id="4-5-tts">4.5 Text to Speech</h2>
+<p><img src="https://i.postimg.cc/BZ8ybPss/tts.png" alt="tts"></p>
+<ul>
+<li>The <code>Text to Speech</code> page allows users to generate audio announcements from predefined text. It provides two modes: <code>Live TTS</code> and <code>Generate TTS</code>.</li>
+<li><code>Live TTS</code> generates and broadcasts the announcement immediately. If preview is enabled, the generated speech will first be played through the user&#39;s browser.</li>
+<li><code>Generate TTS</code> generates the speech and saves the resulting audio file on the server for future use.</li>
+<li>To generate a speech announcement, enter the desired text into the text box, select a voice character, and press <code>Play</code>.</li>
+</ul>
+<p><img src="https://i.postimg.cc/44mMyLVR/preview-tts.png" alt="preview"></p>
+<ul>
+<li>If preview is enabled, the generated speech will be played through the user&#39;s browser. The user can hence choose to start broadcasting it through the PA system if they are satisfied, or discard it.</li>
+</ul>
+<h2 id="4-6-schedule">4.6 Schedule</h2>
+<p><img src="https://i.postimg.cc/DzXJmcCW/schedule.png" alt="schedule"></p>
+<ul>
+<li>The <code>Schedule</code> page contains all scheduled announcements to be played in the future.</li>
+<li>There are two modes for schedules. <code>One Time</code> creates an announcement at a specific day and time, while <code>Recurring</code> allows an announcement to be repeated until disabled.</li>
+</ul>
+<p><img src="https://i.postimg.cc/PJYnwPgx/creating-a-scheduke.png" alt="creating a schedule"></p>
+<ul>
+<li>Press <code>New</code> to create a new schedule .</li>
+<li>Enter the details for the new schedule, including the name, type, and the media queue.</li>
+</ul>
+<p><img src="https://i.postimg.cc/vBPK0Ngs/modify.png" alt="modify"></p>
+<ul>
+<li>To modify a schedule, click on a schedule, and press <code>Modify</code>. Adjust the schedule accordingly. </li>
+<li>After modifying, press <code>Update schedule</code>. The schedule will now be broadcasted according to the new parameters.</li>
+<li>To toggle a schedule active or disabling it, press <code>Toggle</code>. A one-time schedule will automatically updated to inactive once it runs.</li>
+<li>To delete a schdedule, click on a schedule, and press <code>Delete</code>.  </li>
+</ul>
+<h2 id="4-7-audio-manager">4.7 Audio Manager</h2>
+<p><img src="https://i.postimg.cc/4xdZ8NVR/Screen-Shot-2026-08-25-at-14-10-34.png" alt="audio manager"></p>
+<ul>
+<li>The <code>Audio Manager</code> page allow users to Audio Manager and upload new files into the server. It allows user to view all files and its details, modify its name as well as removing it from the server.  </li>
+</ul>
+<p><img src="https://i.postimg.cc/cHYdQ9Yw/uploading-an-audio.gif" alt="uploading an audio"></p>
+<ul>
+<li>To upload an audio file, click on <code>Upload</code> section, select a file and click upload Media Files.</li>
+</ul>
+<p><img src="https://i.postimg.cc/XqRD6WY2/file-details.png" alt="audio details"></p>
+<ul>
+<li>To view an audio&#39;s details, choose an audio file and click <code>View</code>.</li>
+<li>To modify the audio&#39;s display name, click <code>Modify</code>. Enter the details and click <code>Save</code>.</li>
+<li>To download the audio into the device, click <code>Download</code>.</li>
+<li>To remove the audio from the server, click <code>Delete</code>.</li>
+</ul>
+</body></html>

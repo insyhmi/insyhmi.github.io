@@ -138,7 +138,7 @@
             #body_main, #body_project, #gists{
                 width: 90%;
             }
-            #body_main p, #body_main h2{
+            #body_main h2{
                 margin: 20px 0;
             }
             .body_project_child{
@@ -284,7 +284,7 @@
                     </button>
                 </a>
 
-                <a href = "https://www.hackerrank.com/profile/net15_harry" target="_blank">
+                <a href = "https://www.hackerrank.com/profile/lnxhm1" target="_blank">
                     <button class="button-icon">
                         <!-- Hackerrank-->
                         <svg class="icon icon-hackerrank" viewBox="0 0 32 32" fill="white">
@@ -313,15 +313,13 @@
 
 
             </div>
-            <hr>
             <div id="body_main">
-                <h2>Hi!</h2>
-                <p>
-                    Lan S. <span id="age"></span>. M. 🇲🇾 . CS student @ INTEC. JPA Scholar. Prospecting AUS undergrad.<br />
-                    I like mathematics, programming, and cruising through Europe in <a href="https://www.worldoftrucks.com/en/profile/9349877"><span class="inline-code">ETS 2</span></a>.<br />
-                    Data science, AI and cybersecurity interest me, but I'll let fate decide the best major for me.<br />
-                    I do video editing, too! I usually posts my creations on my Youtube, but who knows where it can also appear. <br />
-                </p>
+                <h2>Hello there!</h2>
+                <p>Idlan. <span id="age"></span>.</p>
+                <p>3779 Advanced CS (Honours) student @ UNSW majoring in Artificial Intelligence. JPA-MARA Scholar.</p>
+                <p>Programming for 9 years and counting! Though I've only gotten serious about this recently.</p>
+                <p>I like mathematics, programming, technology, and pondering.</p>
+                <p>I do video editing, too! I usually posts my creations on my Youtube, though I'll never be greate with it. But hey, I prefer my content human-made lol.</p>
             </div>
             <div id="button_body_container">
                 <button id="toggle_project" onmouseup="show_project();" style="color: rgb(44, 44, 44); background-color: white;">Projects</button>
@@ -329,10 +327,24 @@
                 <button id="toggle_videos" onmouseup="show_videos();" style="">Videos</button>
             </div>
             <div id="body_project">
-                <h2>Projects</h2>
+                <h2>Projects and Commissions</h2>
                 <table>
                     <tr><th></th><th></th></tr>
                     
+                    <tr class="body_project_child" onclick="window.open(`remote-pa-system.html`, '_blank')">
+                        <td class="body_project_child_thumbnail">
+                            <img src="assets/rgs.png" loading="lazy">
+                        </td>
+                        <td class="body_project_child_main">
+                            <div class="project-title">
+                                RGS Remote PA System
+                            </div>
+                            <div class="project_description">
+                                Real-time audio broadcast and management system for Reigate Grammar School KL.
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr class="body_project_child" onclick="window.open(`lrs-v1/index.html`, '_blank')">
                         <td class="body_project_child_thumbnail">
                             <img src="assets/restaurant-v1.png" loading="lazy">
@@ -342,7 +354,7 @@
                                 Lanx's Restaurant System v1
                             </div>
                             <div class="project_description">
-                                Demo Unit.
+                                Project while learning Kotlin, the Ktor library and React JS library. 
                             </div>
                         </td>
                     </tr>
@@ -368,10 +380,10 @@
                         </td>
                         <td class="body_project_child_main">
                             <div class="project-title">
-                                Dijkstra Algorithm Simulation
+                                Dijkstra Algorithm visualizer
                             </div>
                             <div class="project_description">
-                                Dijkstra algoritm simulation website
+                                A Dijkstra algoritm simulation/visualizer website for discrete mathematics.
                             </div>
                         </td>
                     </tr>
@@ -441,7 +453,7 @@
                                 POS System       
                             </div>
                             <div class="project_description">
-                                Point of Sale System
+                                Point of Sale System. Made when learning PyQt6 application framework
                             </div>
                         </td>
                     </tr>
@@ -554,9 +566,10 @@
                         </td>
                     </tr>
                 </table>
+                <p>Note to self Ill be replacing this section with programming languages. sounds crazy i didnt push this update alongside recently. Im still in the middle of revamping this portfolio</p>
             </div>
             <div id="videos" style="display:none;">
-                <h2>Videos</h2>
+                <h2>Videos showcase</h2>
                 <table>
                     <tr><th></th><th></th></tr>
                     <tr class="body_project_child" onclick="window.open('https://youtu.be/aYzkKrhP0Oo', '_blank')">
@@ -784,30 +797,25 @@
             return Math.floor(Math.random() * max);
         }
         let tooltip_collection = [
-            "It is, in fact, not the best looking website you've ever seen",
-            "website or portfolio? It's up to you",
+            "It is, in fact, the best looking portfolio you've ever seen",
+            "A portfolio, perhaps.",
             "hello wolrd !",
-            "insert text here",
-            "Hank! Don't abbreviate competitive programming! Hank!",
-            "Do not abbreviate cummulative_weights method for Python's random.choices()",
+            "DSA avoider",
+            "I could've generated this portfolio. So show some appreciation.",
             "Better than a master of one.",
             "the existance of C++ implies the existance of C--",
-            "This is an <span class='inline-code'>inline code</span>",
-            "Playing Visual Studio Code; <span class='inline-code'>insyhmi.github.io</span> for 1 seconds",
             ">> git commmit -m \"how to use git?\"",
-            "windows 10 is better imo",
             "So called adventerous, yet doesnt know about -fpermissive.",
-            "My favorite tree is a segment tree",
-            "minesweeper fan!",
-            "🎵 腐蝕ルサンチマン",
+            "i like minesweeper!",
             "Yes, I made this myself. No, I don't like web design",
             "The glass is half full of air",
             "Playing <span class='inline-code'>Minecraft</span> for 10 hours",
-            "Please subscribe to the video and like the channel"
+            "Larp it till you make it.",
+            "ad.unsw.edu.au >B)"
         ];
         let tooltip_length = tooltip_collection.length;
         let i = getRandomIntInclusive(tooltip_length);
-        document.getElementById("tooltip").innerHTML = tooltip_collection[i];
+        document.getElementById("tooltip").innerHTML = '"' + tooltip_collection[i] + '"';
     </script>
 </html>
 
