@@ -1,836 +1,1068 @@
 <!doctype html>
 <html>
-    <head>
-        <title>insyhmi.io</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-        <style>
-            * {
-                margin: 0px;
-                color: white;
-                font-family:  "Consolas", "Inconsolata" ;
-                box-sizing: border-box;
-                margin: 10px 0px;
+
+<head>
+    <title>insyhmi.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=League+Spartan:wght@100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0px;
+            color: rgb(231, 231, 231);
+            font-family: ui-monospace, "Consolas", "Inconsolata";
+            box-sizing: border-box;
+            margin: 10px 0px;
+        }
+
+        body {
+            background-color: rgb(15, 15, 15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        #tooltip {
+            margin-top: 20px;
+            font-size: 17px;
+            overflow: visible;
+            white-space: nowrap;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        p,
+        .project_description {
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        #main_header_title {
+            text-align: center;
+        }
+
+        #main_header_picture {
+            width: 140px;
+            height: 140px;
+            margin: -70px auto 0;
+            position: relative;
+            z-index: 1;
+
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+        }
+
+        #main_header_social_media {
+            display: flex;
+        }
+
+        #i {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            border-radius: 50%;
+            display: block;
+            object-fit: cover;
+            box-shadow: 0px 0px 25px 20px rgba(15, 15, 15, 0.747);
+            transition: box-shadow 0.2s, border 0.2s;
+            border: 1px solid rgb(114, 181, 244)
+        }
+
+        #main_header_picture #i:hover {
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.35);
+            border: 1px solid yellow;
+            cursor: pointer;
+        }
+
+        hr {
+            width: 100%;
+            margin: 5px;
+        }
+
+        .inline-code {
+            font-weight: bold;
+            font-family: "SFMono-Regular", "Consolas", "Inconsolata";
+            color: #0ed1c1;
+            text-align: center
+        }
+
+        .button-icon {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            padding: 0px;
+            margin: 0px 7px;
+        }
+
+        .icon {
+            height: 32px;
+            width: 32px;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        p a {
+            display: inline;
+        }
+
+        .icon-linkedin,
+        .icon-leetcode {
+            color: rgb(231, 231, 231);;
+        }
+
+        .button-icon:hover {
+            cursor: pointer;
+        }
+
+        .button-icon:hover .icon-linkedin {
+            color: #0a5fe9;
+        }
+
+        .button-icon:hover .icon-leetcode {
+            stroke: #E7A41F;
+        }
+
+        .button-icon:hover .icon-youtube {
+            color: #e53434;
+        }
+
+        .button-icon:hover .icon-tiktok {
+            color: #000;
+            text-shadow: -1px 0 #ee1d52, 0 1px #69c9d0, 1px 0 #69c9d0, 0 -1px #69c9d0;
+        }
+
+        .button-icon:hover .icon-github {
+            color: #4078c0;
+        }
+
+        .icon-hackerrank:hover {
+            fill: #46e71e;
+        }
+
+        .icon-codeforces:hover .codeforces-bar-1 {
+            fill: #fff200;
+        }
+
+        .icon-codeforces:hover .codeforces-bar-2 {
+            fill: #0066ff;
+        }
+
+        .icon-codeforces:hover .codeforces-bar-3 {
+            fill: #d01205;
+        }
+
+        .button-icon:hover .icon-x {
+            color: black;
+            background-color: rgba(255, 255, 255, 0.815);
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.815);
+        }
+
+        #body_main,
+        #body_project,
+        #gists {
+            width: 90%;
+        }
+
+        #body_main h2 {
+            margin: 20px 0;
+        }
+
+        .body_project_child {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .body_project_child:hover {
+            cursor: pointer;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .body_project_child:hover .project-title {
+            text-decoration: underline;
+        }
+
+        .body_project_child_thumbnail {
+            height: 100px;
+            min-width: 100px;
+            max-width: 100px;
+        }
+
+        .body_project_child_thumbnail img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            display: block;
+            margin: 0px;
+            border-radius: 4px;
+        }
+
+        .body_project_child_main {
+            padding: 0px 0px 0px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #button_body_container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+
+        #button_body_container button {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid rgb(231, 231, 231);;
+            color: rgb(231, 231, 231);;
+            padding: 15px 40px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 0;
+        }
+
+        #button_body_container button:hover {
+            color: rgb(44, 44, 44);
+            background-color: rgb(177, 177, 177);;
+        }
+
+        @media screen and (max-width: 1024px) {
+            #tooltip {
+                white-space: normal;
             }
-            body {
-                background-color : rgb(44, 44, 44);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center
+
+            #body_main h2,
+            p {
+                line-height: 1.6;
             }
-            #main{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 50%;
-            }
-            #tooltip{
-                margin-top: 20px;
-                font-size: 17px;
-                overflow: visible;
-                white-space: nowrap;
-            }
-            h1{
-                font-size: 40px;
-            }
-            p{
-                line-height: 1.5;
-            }
-            #main_header_title{
-                text-align: center;
-            }
-            #main_header_picture{
-                width: 140px;
-                height: 140px;
-                border-radius: 50%;
-                background-color: white;
-                box-shadow: 0px 0px 25px rgba(255,255,255, 0.2);
-            }
-            #main_header_social_media{
-                display: flex;
-            }
-            #i{
+
+            #button_body_container button {
                 width: 100%;
-                height: 100%;
                 margin: 0px;
-                border-radius: 50%;
-                display: block;
-                object-fit: cover;
             }
-            #main_header_picture #i:hover{
-                box-shadow: 0px 0px 25px rgba(255,255,255, 0.35);
-                cursor: pointer;
+
+            #main_header_picture {
+                width: 150px;
+                height: 150px;
             }
-            hr{
-                width: 100%;
-                margin: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        #i-big {
+            max-width: 70%;
+            max-height: 70%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0.1)
             }
-            .inline-code{
-                background-color: #323232;
-                border-radius: 4px;
-                border: 2px solid #5e5e5e;
-                font-weight: bold;
-                font-family: "SFMono-Regular", "Consolas", "Inconsolata";
-                padding: 0.15em 0.3em;
-                color: #0ed1c1;  
-                text-align: center
+
+            to {
+                transform: scale(1)
             }
-            .button-icon{
-                background-color: rgba(0,0,0,0);
-                border: none;
-                padding: 0px;
-                margin: 0px 7px;
-            }
-            .icon{
-                height: 32px;
-                width: 32px;
-                font-size: 32px;
-                text-align: center;
-            }
-            p a{
-                display: inline;
-            }
-            .icon-linkedin, .icon-leetcode{
-                color: white;
-            }
-            .button-icon:hover{
-                cursor: pointer;
-            }
-            .button-icon:hover .icon-linkedin{
-                color: #0a5fe9;
-            }
-            .button-icon:hover .icon-leetcode{
-                stroke: #E7A41F;
-            }
-            .button-icon:hover .icon-youtube{
-                color: #e53434;
-            }
-            .button-icon:hover .icon-tiktok{
-                color: #000;
-                text-shadow: -1px 0 #ee1d52, 0 1px #69c9d0, 1px 0 #69c9d0, 0 -1px #69c9d0;
-            }
-            .button-icon:hover .icon-github{
-                color: #4078c0;
-            }
-            .icon-hackerrank:hover{
-                fill: #46e71e;
-            }
-            .icon-codeforces:hover .codeforces-bar-1{
-                fill: #fff200;
-            }
-            .icon-codeforces:hover .codeforces-bar-2{
-                fill: #0066ff;
-            }
-            .icon-codeforces:hover .codeforces-bar-3{
-                fill: #d01205;
-            }
-            .button-icon:hover .icon-x{ 
-                color:black;
-                background-color: rgba(255, 255, 255, 0.815);
-                box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.815);
-            }
-            #body_main, #body_project, #gists{
-                width: 90%;
-            }
-            #body_main h2{
-                margin: 20px 0;
-            }
-            .body_project_child{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-            }
-            .body_project_child:hover{
-                cursor: pointer;
-            }
-            .project-title{
-                font-size: 1.2rem;
-            }
-            .body_project_child:hover .project-title{
-                text-decoration: underline;
-            }
-            .body_project_child_thumbnail{
-                height: 100px;
-                min-width: 100px;
-                max-width: 100px;
-            }
-            .body_project_child_thumbnail img{
-                height: 100%;
-                width: 100%;
-                object-fit: contain;
-                display: block;
-                margin: 0px;
-                border-radius: 4px;
-            }
-            .body_project_child_main{
-                padding: 0px 0px 0px 30px;
-                display: flex;
-                flex-direction: column;
-            }
-            #button_body_container{
-                display:flex;
-                flex-wrap:wrap;
-            }
-            #button_body_container button{
-                background-color: transparent;
-                border: none;
-                border-bottom: 2px solid white;
-                color: white;
-                padding: 15px 40px;
-                text-align: center;
-                text-decoration: none;
-                font-size: 16px;
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-            #button_body_container button:hover{
-                color : rgb(44, 44, 44);
-                background-color: white;
-            }
-            @media screen and (max-width: 768px){
-                #main{
-                    width: 95%;
-                }
-                #tooltip{
-                    white-space: normal;
-                }
-                #body_main h2, p{
-                    line-height: 1.6;
-                }
-                #button_body_container button{
-                    width: 95%;
-                    margin: 0px;
-                }
-            }
-            .modal {
-                display: none; 
-                position: fixed; 
-                z-index: 1000; 
-                left: 0;
-                top: 0;
-                width: 100%; 
-                height: 100%; 
-                background-color: rgba(0,0,0,0.8);
-            }
-            .modal-content {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-            }
-            #i-big {
-                max-width: 70%;
-                max-height: 70%;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-                animation: zoom 0.3s;
-            }
-            @keyframes zoom {
-                from {transform: scale(0.1)} 
-                to {transform: scale(1)}
-            }
-        </style>
-    </head>
-    <body>
-        <div class="modal" id="modalPfp">
-            <div class="modal-content">
-                <img src="assets/i.png" id="i-big">
+        }
+
+        .header {
+            position: relative;
+        }
+
+        .header-image {
+            width: 100%;
+            height: 25vh;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            margin: 0;
+        }
+
+        .main-layout {
+            box-sizing: border-box;
+            position: relative;
+            display: grid;
+            min-height: 100vh;
+            grid-template-columns:
+                0.8fr clamp(0.8rem, 2vw, 1.5rem) minmax(0, 48rem) clamp(0.8rem, 2vw, 1.5rem) 0.8fr;
+            grid-template-rows: 1fr 1px auto 1px auto 1px 1fr;
+            --pattern-fg: rgba(114, 181, 244, 0.322);
+            width: 100vw;
+        }
+
+        #body-content {
+            width: 90%;
+            margin-top: 15px;
+        }
+
+        .main-content {
+            grid-column: 3;
+            grid-row: 3;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            line-height: 1.75rem;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .pattern-left, .pattern-right {
+            position: relative;
+            grid-row: 1 / -1;
+            border-left: 1px solid var(--pattern-fg);
+            border-right: 1px solid var(--pattern-fg);
+            background-image: repeating-linear-gradient(315deg,
+                var(--pattern-fg) 0,
+                var(--pattern-fg) 1px,
+                transparent 1px,
+                transparent 50%);
+            background-size: 10px 10px;
+            background-attachment: fixed;
+            margin: 0;
+        }
+
+        .pattern-left {
+            grid-column: 2;
+            right: 1px;
+        }
+
+        .pattern-right {
+            grid-column: 4;
+            left: 1px;
+        }
+
+        /* Horizontal divider lines */
+        .divider {
+            position: relative;
+            grid-column: 1 / -1;
+            height: 1px;
+            background-color: var(--pattern-fg);
+            margin: 0;
+        }
+
+        .divider-top {
+            grid-row: 2;
+            bottom: 1px;
+        }
+
+        .divider-bottom {
+            grid-row: 4;
+            top: 1px;
+        }
+
+        .divider-inner {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            background-color: var(--pattern-fg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-layout">
+        <div class="main-content">
+            <div class="modal" id="modalPfp">
+                <div class="modal-content">
+                    <img src="assets/i.jpg" id="i-big">
+                </div>
+            </div>
+
+            <div id="main">
+                <div class="header-image">
+                    <img src="assets/header-img.jpg">
+                </div>
+                <div class="divider divider-inner"></div>
+                <div id="main_header_picture">
+                    <img src="assets/i.jpg" id="i">
+                </div>
+                <div id="main_header_title">
+                    <h1>insyhmi.io</h1>
+                    <h3 id="tooltip"></h3>
+                </div>
+                <div id="main_header_social_media">
+                    <a href="https://www.linkedin.com/in/idlan-syahmi/" target="_blank">
+                        <button class="button-icon">
+                            <!--Linkedin-->
+                            <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
+                        </button>
+                    </a>
+
+                    <a href="https://leetcode.com/u/lnxhm1/" target="_blank">
+                        <button class="button-icon">
+                            <!--Leetcode-->
+                            <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor"
+                                stroke-width="4">
+                                <path
+                                    d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373" />
+                                <path d="M18.7571,13.41,27.7647,4.5" />
+                                <path d="M19.5838,27.5918h21.49" />
+                            </svg>
+                        </button>
+                    </a>
+
+                    <a href="https://www.youtube.com/@lnxhm1" target="_blank">
+                        <button class="button-icon">
+                            <!--Youtube-->
+                            <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
+                        </button>
+                    </a>
+
+                    <a href="https://github.com/insyhmi" target="_blank">
+                        <button class="button-icon">
+                            <!--Github-->
+                            <i class="fa-brands fa-github icon icon-github"></i>
+                        </button>
+                    </a>
+
+                    <a href="https://www.hackerrank.com/profile/lnxhm1" target="_blank">
+                        <button class="button-icon">
+                            <!-- Hackerrank-->
+                            <svg class="icon icon-hackerrank" viewBox="0 0 32 32" fill="white">
+                                <path
+                                    d="M16 0c1.714 0 13 6.516 13.854 8 0.859 1.484 0.859 14.516 0 16s-12.141 8-13.854 8c-1.714 0-13-6.516-13.859-8-0.854-1.484-0.854-14.516 0-16 0.859-1.484 12.146-8 13.859-8zM19.063 9.068c-0.193 0-0.349 0.151-0.349 0.344v5.167h-5.427v-5.37h0.932c0.188 0 0.339-0.151 0.339-0.344 0-0.125-0.068-0.234-0.161-0.292l-2.099-2.010c-0.063-0.089-0.188-0.146-0.302-0.146-0.109 0-0.214 0.057-0.276 0.141l-2.24 2.016c-0.094 0.063-0.161 0.167-0.161 0.292 0 0.188 0.151 0.344 0.344 0.344h0.938l0.010 13.38c0 0.193 0.146 0.344 0.339 0.344h1.99c0.188 0 0.344-0.151 0.344-0.344v-5.339h5.432v5.536h-0.932c-0.193 0-0.344 0.156-0.344 0.344 0 0.125 0.068 0.234 0.161 0.292l2.104 2.016c0.057 0.083 0.188 0.146 0.302 0.146s0.208-0.063 0.276-0.146l2.24-2.016c0.094-0.057 0.161-0.167 0.161-0.292 0-0.188-0.156-0.344-0.344-0.344h-0.938l-0.010-13.375c0-0.198-0.151-0.349-0.339-0.349h-1.99z" />
+                            </svg>
+                        </button>
+                    </a>
+
+                    <a href="https://codeforces.com/profile/lnxhm1" target="_blank">
+                        <button class="button-icon">
+                            <!-- Codeforces-->
+                            <svg class="icon icon-codeforces" viewBox="0 0 24 24" fill="currentColor">
+                                <path class="codeforces-bar-1"
+                                    d="M4.5 7.5A1.5 1.5 0 0 1 6 9v10.5A1.5 1.5 0 0 1 4.5 21h-3C.673 21 0 20.328 0 19.5V9c0-.828.673-1.5 1.5-1.5h3z" />
+                                <path class="codeforces-bar-2"
+                                    d="M13.5 3A1.5 1.5 0 0 1 15 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-3c-.827 0-1.5-.672-1.5-1.5v-15c0-.828.673-1.5 1.5-1.5h3z" />
+                                <path class="codeforces-bar-3"
+                                    d="M22.5 12A1.5 1.5 0 0 1 24 13.5v6a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5v-6a1.5 1.5 0 0 1 1.5-1.5h3z" />
+                            </svg>
+                        </button>
+                    </a>
+
+                    <a href="https://x.com/insyhmi" target="_blank">
+                        <button class="button-icon">
+                            <!--Twitter X-->
+                            <i class="fa-brands fa-x-twitter icon icon-x"></i>
+                        </button>
+                    </a>
+
+
+                </div>
+                <div id="body_main">
+                    <h2>Hello</h2>
+                    <p>Idlan. <span id="age"></span>.</p>
+                    <p>Adv. CS @ <span class='inline-code'>UNSW</span> majoring in Artificial Intelligence + JPA-MARA Scholar.</p>
+                    <p>Interests: mathematics, programming, technology, and pondering.</p>
+                    <p>I discovered programming when I was 10 and started with everyone's favorite, the Vanilla Frontend
+                        Stack (HTML, CSS, JS).
+                        From there on, I expanded into a handful of other programming languages in multiple areas such as web applications, 
+                        backend dev, software development, and artificial intelligence. 
+                        Nowadays, I spend most of my time with <span class='inline-code'>Python</span> and <span class='inline-code'>C&#43;&#43;</span>, experimenting with whatever comes to mind and coding my own tools from scratch.
+                        Other than helping me to understand how the process work under the hood, it also brings valuable experience in managing projects
+                        and designing efficient, readable and scalable programs over the years; in other words, I learn to become discipline with my code. B)</p>
+
+                    <p>I can also do video editing! I posts my creations on my Youtube during my spare time.</p>
+                    <p>For commissions or business enquiries, shoot me an email at <span class='inline-code'>i.idlan.syahmi&#64;outlook.com</span></p>
+
+                </div>
+                <div id="button_body_container">
+                    <button id="toggle_project" onmouseup="show_project();"
+                        style="color: rgb(44, 44, 44); background-color: white;">Projects</button>
+                    <button id="toggle_gists" onmouseup="show_gists();" style="">Language</button>
+                    <button id="toggle_videos" onmouseup="show_videos();" style="">Videos</button>
+                </div>
+                <div class="divider divider-inner"></div>
+
+                <div id="body-content">
+                    <div id="body_project">
+                        <h2>Projects and Commissions</h2>
+                        <table>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+
+                            <tr class="body_project_child" onclick="window.open(`remote-pa-system.html`, '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="assets/rgs.png" loading="lazy">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        RGSKL Remote PA System
+                                    </div>
+                                    <div class="project_description">
+                                        Real-time remote audio broadcast and management system, commission for Reigate
+                                        Grammar School KL.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child" onclick="window.open(`lrs-v1/index.html`, '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="assets/restaurant-v1.png" loading="lazy">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Lanx's Restaurant System v1
+                                    </div>
+                                    <div class="project_description">
+                                        Project while learning Kotlin, the Ktor library and React JS library.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child" onclick="window.open('captcha minesweeper.html', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="assets/minecaptcha.png" loading="lazy">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Mine Captcha
+                                    </div>
+                                    <div class="project_description">
+                                        A Captcha demo that makes you play Minesweeper.
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr class="body_project_child" onclick="window.open('dijkstra.html', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="assets/dijkstra.png" loading="lazy">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Dijkstra Algorithm visualizer
+                                    </div>
+                                    <div class="project_description">
+                                        A Dijkstra algoritm simulation/visualizer website for discrete mathematics.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('integration rational function.html', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/integration.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Integration for Rational Function Game
+                                    </div>
+                                    <div class="project_description">
+                                        Calculus 2 Assignment 1 Project for game.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/crafting-calculator', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/mc-crafting.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Crafting Calculator
+                                    </div>
+                                    <div class="project_description">
+                                        A Python application to calculate the required ingredients for a specified item
+                                        in
+                                        Minecraft.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/lanx-nonogram', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/nonogram.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Lanx's Nonogram
+                                    </div>
+                                    <div class="project_description">
+                                        My own iteration of Nonogram.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/lanxs-minesweeper', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/minesweeper.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Lanx's Minesweeper
+                                    </div>
+                                    <div class="project_description">
+                                        My own iteration of the infamous roomba amusement using Python Pygame library.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/pos-system', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/pos.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        POS System
+                                    </div>
+                                    <div class="project_description">
+                                        Point of Sale System. Made when learning PyQt6 application framework
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/monyet-python', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/sisyphus.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Sisyphus by Monyet Python
+                                    </div>
+                                    <div class="project_description">
+                                        Winning Application of InHacks Hackathon 2025.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/insyhmi/waktu_solat', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/waktu solat.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Waktu Solat
+                                    </div>
+                                    <div class="project_description">
+                                        A desktop application that provides local prayer time in Malaysia using PyQt6
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://github.com/code50/187157137', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/CS50AI.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        CS50 AI
+                                    </div>
+                                    <div class="project_description">
+                                        My projects during CS50 AI learning.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://test-soalanspm.42web.io', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="https://test-soalanspm.42web.io/icon.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Rubisco Bank Soalan SPM
+                                    </div>
+                                    <div class="project_description">
+                                        A website I created for fun to host questions from multiple past papers in an
+                                        interactive way
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://drive.google.com/file/d/1vDgBsSV2inUlXNVbbh6k1wljMnyrJik2/view?usp=sharing', '_blank')">
+                                <td class="body_project_child_thumbnail" loading="lazy">
+                                    <img src="assets/eco.png">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Project ECO
+                                    </div>
+                                    <div class="project_description">
+                                        1st runner up game for Gamifikasi Teknologi Hijau 2023 by CETREE Universiti
+                                        Sains Malaysia (USM)
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="assets/perkasa.png" loading="lazy">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Library Management Software
+                                    </div>
+                                    <div class="project_description">
+                                        I created a web-based library management software which includes a plethora of
+                                        features and functions for my highschool
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div id="gists" style="display:none;">
+                        <h2>Language</h2>
+                        <p>
+                            <span class="inline-code">gists.com</span><br />
+                        </p>
+                        <p>Note to self Ill be replacing this section with programming languages. sounds crazy i didnt
+                            push
+                            this update alongside recently. Im still in the middle of revamping this portfolio</p>
+                        <p>Order of languange expertise</p>
+                        <ul>
+                            <li>Python</li>
+                            <li>Javascript and Node.js</li>
+                            <li>C/C++</li>
+                            <li>Java/Kotlin</li>
+                            <li>PHP</li>
+                            <li>Unity C#</li>
+                        </ul>
+                    </div>
+                    <div id="videos" style="display:none;">
+                        <h2>Videos showcase</h2>
+                        <table>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/aYzkKrhP0Oo', '_blank')">
+
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/aYzkKrhP0Oo/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Fly High AD31
+                                    </div>
+                                    <div class="project_description">
+                                        April 30 2026
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/8HEbTdELKwM', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/8HEbTdELKwM/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        The Schizophrenic - (MPU3233 Introduction To Psychology)
+                                    </div>
+                                    <div class="project_description">
+                                        April 19 2026
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/eEI6aqehOKg', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/eEI6aqehOKg/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Montaj PTM my part
+                                    </div>
+                                    <div class="project_description">
+                                        February 9 2026
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://1drv.ms/v/c/429aeee96853109f/IQCFzl3RtvEjT7P34oVgExm_AZKpQzKclU6je_HUP_FPwQ8?e=EcWMFe', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/./hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        USEL24 GROUP 4 - MARTIN LUTHER KING JR. DAY
+                                    </div>
+                                    <div class="project_description">
+                                        June 1 2025
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/zSGYXBf4jdg', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/zSGYXBf4jdg/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Hadiah Tersirat - INTEC Journey's
+                                    </div>
+                                    <div class="project_description">
+                                        June 1 2025
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/6TRq69jJUoM', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/6TRq69jJUoM/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        CTIS22 I The Story of Michael Jordan I JASPER I AD31
+                                    </div>
+                                    <div class="project_description">
+                                        October 4 2024
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/8Phf9npF8Ro', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/8Phf9npF8Ro/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        intec cinematic test
+                                    </div>
+                                    <div class="project_description">
+                                        August 30 2024
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/W5Lwfm9R984', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/W5Lwfm9R984/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        TEKNOLOGI HIJAU 2023 - GAMIFIKASI - SM SAINS TUANKU MUNAWIR
+                                    </div>
+                                    <div class="project_description">
+                                        September 9 2023
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/lILdlK2gWa0', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/lILdlK2gWa0/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Cleaning action of soap
+                                    </div>
+                                    <div class="project_description">
+                                        March 10 2023
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be//XaMPRhOjRc0', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/XaMPRhOjRc0/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        NFL 2023 Video Outreach Group 12
+                                    </div>
+                                    <div class="project_description">
+                                        February 15 2023
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/lSossosJYro', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/lSossosJYro/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Basic Trigonometric Identities Proof
+                                    </div>
+                                    <div class="project_description">
+                                        December 30 2022
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/PFhxxJMJ99s', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/PFhxxJMJ99s/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        video penutup minggu pss
+                                    </div>
+                                    <div class="project_description">
+                                        October 29 2022
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="body_project_child"
+                                onclick="window.open('https://youtu.be/vNdsvHBiB3w', '_blank')">
+                                <td class="body_project_child_thumbnail">
+                                    <img src="https://img.youtube.com/vi/vNdsvHBiB3w/hqdefault.jpg">
+                                </td>
+                                <td class="body_project_child_main">
+                                    <div class="project-title">
+                                        Su-30 MKM
+                                    </div>
+                                    <div class="project_description">
+                                        January 26 2022
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="divider divider-inner"></div>
+                <div id="last_updated">
+                    Last updated 27 October 2026
+                </div>
             </div>
         </div>
+        <div class="pattern-left"></div>
 
-        <div id="main">
-            <div id="main_header_picture">
-                <img src="assets/i.png" id="i">
-            </div>
-            <div id="main_header_title">            
-                <h1>insyhmi.io</h1>
-                <h3 id="tooltip"></h3>
-            </div>
-            <div id="main_header_social_media">
-                <a href="https://www.linkedin.com/in/idlan-syahmi/" target="_blank">
-                    <button class="button-icon">
-                        <!--Linkedin-->
-                        <i class="fa-brands fa-linkedin icon icon-linkedin"></i>
-                    </button>   
-                </a>
+        <!-- Right diagonal pattern -->
+        <div class="pattern-right"></div>
 
-                <a href="https://leetcode.com/u/lnxhm1/" target="_blank">
-                    <button class="button-icon">
-                        <!--Leetcode-->
-                        <svg class="icon icon-leetcode" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4">
-                            <path d="M33.8092,34.8772,26.8725,41.814a5.7258,5.7258,0,0,1-8.1154,0L8.6127,31.67a5.726,5.726,0,0,1,0-8.1155L18.7571,13.41a5.7258,5.7258,0,0,1,8.1154,0L34.5,21.0373"/>
-                            <path d="M18.7571,13.41,27.7647,4.5"/>
-                            <path d="M19.5838,27.5918h21.49"/>
-                        </svg>
-                    </button>
-                </a>
+        <!-- Horizontal divider lines -->
+        <div class="divider divider-top"></div>
+        <div class="divider divider-bottom"></div>
 
-                <a href="https://www.youtube.com/@lnxhm1" target="_blank">
-                    <button class="button-icon"> 
-                        <!--Youtube-->
-                        <i class="fa-brands fa-youtube icon icon-youtube" style="font-size:28px"></i>
-                    </button>
-                </a>
-                
-                <a href="https://github.com/insyhmi" target="_blank">
-                    <button class="button-icon">
-                        <!--Github-->
-                        <i class="fa-brands fa-github icon icon-github"></i>
-                    </button>
-                </a>
+    </div>
+</body>
+<script>
+    const profilePicture = document.getElementById("i");
+    const profilePictureModal = document.getElementById("modalPfp");
+    const profilePictureBig = document.getElementById("i-big");
 
-                <a href = "https://www.hackerrank.com/profile/lnxhm1" target="_blank">
-                    <button class="button-icon">
-                        <!-- Hackerrank-->
-                        <svg class="icon icon-hackerrank" viewBox="0 0 32 32" fill="white">
-                            <path d="M16 0c1.714 0 13 6.516 13.854 8 0.859 1.484 0.859 14.516 0 16s-12.141 8-13.854 8c-1.714 0-13-6.516-13.859-8-0.854-1.484-0.854-14.516 0-16 0.859-1.484 12.146-8 13.859-8zM19.063 9.068c-0.193 0-0.349 0.151-0.349 0.344v5.167h-5.427v-5.37h0.932c0.188 0 0.339-0.151 0.339-0.344 0-0.125-0.068-0.234-0.161-0.292l-2.099-2.010c-0.063-0.089-0.188-0.146-0.302-0.146-0.109 0-0.214 0.057-0.276 0.141l-2.24 2.016c-0.094 0.063-0.161 0.167-0.161 0.292 0 0.188 0.151 0.344 0.344 0.344h0.938l0.010 13.38c0 0.193 0.146 0.344 0.339 0.344h1.99c0.188 0 0.344-0.151 0.344-0.344v-5.339h5.432v5.536h-0.932c-0.193 0-0.344 0.156-0.344 0.344 0 0.125 0.068 0.234 0.161 0.292l2.104 2.016c0.057 0.083 0.188 0.146 0.302 0.146s0.208-0.063 0.276-0.146l2.24-2.016c0.094-0.057 0.161-0.167 0.161-0.292 0-0.188-0.156-0.344-0.344-0.344h-0.938l-0.010-13.375c0-0.198-0.151-0.349-0.339-0.349h-1.99z"/>
-                        </svg>
-                    </button>
-                </a>
+    profilePicture.onclick = function () {
+        profilePictureModal.style.display = "block";
 
-                <a href="https://codeforces.com/profile/lnxhm1" target="_blank">
-                    <button class="button-icon">
-                        <!-- Codeforces-->
-                        <svg class="icon icon-codeforces" viewBox="0 0 24 24" fill="currentColor">
-                            <path class="codeforces-bar-1" d="M4.5 7.5A1.5 1.5 0 0 1 6 9v10.5A1.5 1.5 0 0 1 4.5 21h-3C.673 21 0 20.328 0 19.5V9c0-.828.673-1.5 1.5-1.5h3z"/>
-                            <path class="codeforces-bar-2" d="M13.5 3A1.5 1.5 0 0 1 15 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-3c-.827 0-1.5-.672-1.5-1.5v-15c0-.828.673-1.5 1.5-1.5h3z"/>
-                            <path class="codeforces-bar-3" d="M22.5 12A1.5 1.5 0 0 1 24 13.5v6a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5v-6a1.5 1.5 0 0 1 1.5-1.5h3z"/>
-                        </svg>
-                    </button>
-                </a>
-
-                <a href="https://x.com/insyhmi" target="_blank">
-                    <button class="button-icon">
-                        <!--Twitter X-->
-                        <i class="fa-brands fa-x-twitter icon icon-x"></i>
-                    </button>
-                </a>
-
-
-            </div>
-            <div id="body_main">
-                <h2>Hello</h2>
-                <p>Idlan. <span id="age"></span>.</p>
-                <p>3779 Advanced CS (Honours) student @ UNSW majoring in Artificial Intelligence. JPA-MARA Scholar.</p>
-                <p>Programming for 9 years and counting! Though I've only gotten serious about this recently.</p>
-                <p>I like mathematics, programming, technology, and pondering.</p>
-                <p>I sometimes do video editing, too! Though its not the best, I posts my creations on my Youtube during my spare time.</p>
-                <p>For commissions or business enquiries, shoot me an email at <span class='inline-code'>i.idlan.syahmi@outlook.com</span></p>
-            </div>
-            <div id="button_body_container">
-                <button id="toggle_project" onmouseup="show_project();" style="color: rgb(44, 44, 44); background-color: white;">Projects</button>
-                <button id="toggle_gists" onmouseup="show_gists();" style="">Gists</button>
-                <button id="toggle_videos" onmouseup="show_videos();" style="">Videos</button>
-            </div>
-            <div id="body_project">
-                <h2>Projects and Commissions</h2>
-                <table>
-                    <tr><th></th><th></th></tr>
-                    
-                    <tr class="body_project_child" onclick="window.open(`remote-pa-system.html`, '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/rgs.png" loading="lazy">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                RGSKL Remote PA System
-                            </div>
-                            <div class="project_description">
-                                Real-time remote audio broadcast and management system, commission for Reigate Grammar School KL.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open(`lrs-v1/index.html`, '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/restaurant-v1.png" loading="lazy">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Lanx's Restaurant System v1
-                            </div>
-                            <div class="project_description">
-                                Project while learning Kotlin, the Ktor library and React JS library. 
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('captcha minesweeper.html', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/minecaptcha.png" loading="lazy">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Mine Captcha
-                            </div>
-                            <div class="project_description">
-                                A Captcha demo that makes you play Minesweeper.
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr class="body_project_child" onclick="window.open('dijkstra.html', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/dijkstra.png" loading="lazy">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Dijkstra Algorithm visualizer
-                            </div>
-                            <div class="project_description">
-                                A Dijkstra algoritm simulation/visualizer website for discrete mathematics.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('integration rational function.html', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/integration.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Integration for Rational Function Game
-                            </div>
-                            <div class="project_description">
-                                Calculus 2 Assignment 1 Project for game.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/crafting-calculator', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/mc-crafting.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Crafting Calculator
-                            </div>
-                            <div class="project_description">
-                                A Python application to calculate the required ingredients for a specified item in Minecraft.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/lanx-nonogram', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/nonogram.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Lanx's Nonogram
-                            </div>
-                            <div class="project_description">
-                                My own iteration of Nonogram.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/lanxs-minesweeper', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/minesweeper.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Lanx's Minesweeper
-                            </div>
-                            <div class="project_description">
-                                My own iteration of the infamous roomba amusement using Python Pygame library.
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/pos-system', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/pos.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                POS System       
-                            </div>
-                            <div class="project_description">
-                                Point of Sale System. Made when learning PyQt6 application framework
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/monyet-python', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/sisyphus.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Sisyphus by Monyet Python      
-                            </div>
-                            <div class="project_description">
-                                Winning Application of InHacks Hackathon 2025.
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onclick="window.open('https://github.com/insyhmi/waktu_solat', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/waktu solat.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Waktu Solat       
-                            </div>
-                            <div class="project_description">
-                                A desktop application that provides local prayer time in Malaysia using PyQt6
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://github.com/code50/187157137', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/CS50AI.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                CS50 AI       
-                            </div>
-                            <div class="project_description">
-                                My projects during CS50 AI learning.
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onclick="window.open('https://test-soalanspm.42web.io', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="https://test-soalanspm.42web.io/icon.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Rubisco Bank Soalan SPM       
-                            </div>
-                            <div class="project_description">
-                                A website I created for fun to host questions from multiple past papers in an interactive way
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onclick="window.open('https://drive.google.com/file/d/1vDgBsSV2inUlXNVbbh6k1wljMnyrJik2/view?usp=sharing', '_blank')">
-                        <td class="body_project_child_thumbnail" loading="lazy">
-                            <img src="assets/eco.png">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Project ECO      
-                            </div>
-                            <div class="project_description">
-                                A game that I programmed for a team competition hosted by CETREE from Universiti Sains Malaysia (USM)
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child">
-                        <td class="body_project_child_thumbnail">
-                            <img src="assets/perkasa.png" loading="lazy">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Library Management Software       
-                            </div>
-                            <div class="project_description">
-                                I created a web-based library management software which includes a plethora of features and functions for my highschool
-                            </div>
-                        </td>
-                    </tr>
-                    
-                </table>
-            </div>
-            <div id="gists" style="display:none;">
-                <h2>Gists</h2>
-                <p>
-                    My random code snippets. Most of them are part of my learning process.
-                    <span class="inline-code">gists.com</span><br/>
-                </p>
-                <table>
-                    <tr><th></th><th></th></tr>
-                    <tr class="body_project_child" onclick="window.open('https://gist.github.com/insyhmi?direction=desc&sort=updated', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://avatars.githubusercontent.com/u/187157137?v=4">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                insyhmi's Github Gist
-                            </div>
-                            <div class="project_description">
-                                insyhmi's Github Gist
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <p>Note to self Ill be replacing this section with programming languages. sounds crazy i didnt push this update alongside recently. Im still in the middle of revamping this portfolio</p>
-                <p>Order of languange expertise</p>
-                <ul>
-                    <li>Python</li>
-                    <li>HTML/CSS/Javascript</li>
-                    <li>C/C++</li>
-                    <li>Java/Kotlin</li>
-                    <li>PHP</li>
-                    <li>Unity C#</li>
-                </ul>
-            </div>
-            <div id="videos" style="display:none;">
-                <h2>Videos showcase</h2>
-                <table>
-                    <tr><th></th><th></th></tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/aYzkKrhP0Oo', '_blank')">
-
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/aYzkKrhP0Oo/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Fly High AD31
-                            </div>
-                            <div class="project_description">
-                                April 30 2026
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/8HEbTdELKwM', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/8HEbTdELKwM/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                The Schizophrenic - (MPU3233 Introduction To Psychology)
-                            </div>
-                            <div class="project_description">
-                                April 19 2026
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/eEI6aqehOKg', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/eEI6aqehOKg/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Montaj PTM my part
-                            </div>
-                            <div class="project_description">
-                                February 9 2026
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://1drv.ms/v/c/429aeee96853109f/IQCFzl3RtvEjT7P34oVgExm_AZKpQzKclU6je_HUP_FPwQ8?e=EcWMFe', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/./hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                USEL24 GROUP 4 - MARTIN LUTHER KING JR. DAY
-                            </div>
-                            <div class="project_description">
-                                June 1 2025
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/zSGYXBf4jdg', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/zSGYXBf4jdg/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Hadiah Tersirat - INTEC Journey's 
-                            </div>
-                            <div class="project_description">
-                                June 1 2025
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/6TRq69jJUoM', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/6TRq69jJUoM/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                CTIS22 I The Story of Michael Jordan I JASPER I AD31 
-                            </div>
-                            <div class="project_description">
-                                October 4 2024
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/8Phf9npF8Ro', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/8Phf9npF8Ro/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                intec cinematic test 
-                            </div>
-                            <div class="project_description">
-                                August 30 2024
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/W5Lwfm9R984', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/W5Lwfm9R984/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                TEKNOLOGI HIJAU 2023 - GAMIFIKASI - SM SAINS TUANKU MUNAWIR
-                            </div>
-                            <div class="project_description">
-                                September 9 2023
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/lILdlK2gWa0', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/lILdlK2gWa0/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Cleaning action of soap
-                            </div>
-                            <div class="project_description">
-                                March 10 2023
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be//XaMPRhOjRc0', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/XaMPRhOjRc0/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                NFL 2023 Video Outreach Group 12
-                            </div>
-                            <div class="project_description">
-                                February 15 2023
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/lSossosJYro', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/lSossosJYro/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Basic Trigonometric Identities Proof
-                            </div>
-                            <div class="project_description">
-                                December 30 2022
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/PFhxxJMJ99s', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/PFhxxJMJ99s/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                video penutup minggu pss
-                            </div>
-                            <div class="project_description">
-                                October 29 2022
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="body_project_child" onclick="window.open('https://youtu.be/vNdsvHBiB3w', '_blank')">
-                        <td class="body_project_child_thumbnail">
-                            <img src="https://img.youtube.com/vi/vNdsvHBiB3w/hqdefault.jpg">
-                        </td>
-                        <td class="body_project_child_main">
-                            <div class="project-title">
-                                Su-30 MKM
-                            </div>
-                            <div class="project_description">
-                                January 26 2022
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </body>
-    <script>
-        const profilePicture = document.getElementById("i");
-        const profilePictureModal = document.getElementById("modalPfp");
-        const profilePictureBig = document.getElementById("i-big");
-
-        profilePicture.onclick = function() {
-            profilePictureModal.style.display = "block";
-
+    }
+    profilePictureModal.onclick = function (event) {
+        if (event.target !== profilePictureBig) {
+            profilePictureModal.style.display = "none";
         }
-        profilePictureModal.onclick = function(event) {
-            if (event.target !== profilePictureBig) {
-                profilePictureModal.style.display = "none";
-            }
-        }
-        function show_gists(){
-            document.getElementById("toggle_project").removeAttribute("style");
-            document.getElementById("toggle_videos").removeAttribute("style");
-            document.getElementById("toggle_gists").style.backgroundColor = "white";
-            document.getElementById("toggle_gists").style.color = "rgb(44, 44, 44)";
-            document.getElementById("videos").style.display = "none";
-            document.getElementById("gists").style.display = "block";
-            document.getElementById("body_project").style.display = "none";
-        }
-        function show_project(){
-            document.getElementById("toggle_gists").removeAttribute("style");
-            document.getElementById("toggle_videos").removeAttribute("style");
-            document.getElementById("toggle_project").style.backgroundColor = "white";
-            document.getElementById("toggle_project").style.color = "rgb(44, 44, 44)";
-            document.getElementById("videos").style.display = "none";
-            document.getElementById("gists").style.display = "none";
-            document.getElementById("body_project").style.display = "block";
-            
-        }
-        function show_videos(){
-            document.getElementById("toggle_gists").removeAttribute("style");
-            document.getElementById("toggle_project").removeAttribute("style");
-            document.getElementById("toggle_videos").style.backgroundColor = "white";
-            document.getElementById("toggle_videos").style.color = "rgb(44, 44, 44)";
-            document.getElementById("videos").style.display = "block";
-            document.getElementById("gists").style.display = "none";
-            document.getElementById("body_project").style.display = "none";
-        }
-        const currentDate = new Date();
-        document.getElementById("age").innerText = currentDate.getFullYear() - 2006;
-        function getRandomIntInclusive(max) {
-            max = Math.floor(max);
-            return Math.floor(Math.random() * max);
-        }
-        let tooltip_collection = [
-            "It is, in fact, the best looking portfolio you've ever seen",
-            "A portfolio, perhaps.",
-            "hello wolrd !",
-            "DSA avoider",
-            "I could've generated this portfolio. So show some appreciation.",
-            "Better than a master of one.",
-            "the existance of C++ implies the existance of C--",
-            ">> git commmit -m \"how to use git?\"",
-            "So called adventerous, yet doesnt know about -fpermissive.",
-            "i like minesweeper!",
-            "Yes, I made this myself. No, I don't like web design",
-            "The glass is half full of air",
-            "Playing <span class='inline-code'>Minecraft</span> for 10 hours",
-            "Larp it till you make it.",
-            "ad.unsw.edu.au >B)"
-        ];
-        let tooltip_length = tooltip_collection.length;
-        let i = getRandomIntInclusive(tooltip_length);
-        document.getElementById("tooltip").innerHTML = '"' + tooltip_collection[i] + '"';
-    </script>
+    }
+    function show_gists() {
+        document.getElementById("toggle_project").removeAttribute("style");
+        document.getElementById("toggle_videos").removeAttribute("style");
+        document.getElementById("toggle_gists").style.backgroundColor = "white";
+        document.getElementById("toggle_gists").style.color = "rgb(44, 44, 44)";
+        document.getElementById("videos").style.display = "none";
+        document.getElementById("gists").style.display = "block";
+        document.getElementById("body_project").style.display = "none";
+    }
+    function show_project() {
+        document.getElementById("toggle_gists").removeAttribute("style");
+        document.getElementById("toggle_videos").removeAttribute("style");
+        document.getElementById("toggle_project").style.backgroundColor = "white";
+        document.getElementById("toggle_project").style.color = "rgb(44, 44, 44)";
+        document.getElementById("videos").style.display = "none";
+        document.getElementById("gists").style.display = "none";
+        document.getElementById("body_project").style.display = "block";
+    }
+    function show_videos() {
+        document.getElementById("toggle_gists").removeAttribute("style");
+        document.getElementById("toggle_project").removeAttribute("style");
+        document.getElementById("toggle_videos").style.backgroundColor = "white";
+        document.getElementById("toggle_videos").style.color = "rgb(44, 44, 44)";
+        document.getElementById("videos").style.display = "block";
+        document.getElementById("gists").style.display = "none";
+        document.getElementById("body_project").style.display = "none";
+    }
+    const currentDate = new Date();
+    document.getElementById("age").innerText = currentDate.getFullYear() - 2006;
+    function getRandomIntInclusive(max) {
+        max = Math.floor(max);
+        return Math.floor(Math.random() * max);
+    }
+    let tooltip_collection = [
+        "It is, in fact, the portfolio you're looking for",
+        "welcome to my very kool webs site",
+        "hello wolrd !",
+        "helloworld(Print)",
+        "malloc() vs calloc().",
+        "Better than a master of one.",
+        "the existance of C++ implies the existance of C--",
+        ">> git commmit -m \"how to use git?\"",
+        "So called adventerous, yet doesnt know about -fpermissive.",
+        "i like minesweeper!",
+        "The glass is half full of air",
+        "Playing <span class='inline-code'>Minecraft</span> for 10 hours",
+        "Sample text 1",
+        "@ad.unsw.edu.au",
+        "Hit me up for commissions",
+        "Contrary to popular belief, i enjoy both coffee and tea.",
+        "Refresh and watch this text changes."
+    ];
+    let tooltip_length = tooltip_collection.length;
+    let i = getRandomIntInclusive(tooltip_length);
+    document.getElementById("tooltip").innerHTML = '"' + tooltip_collection[i] + '"';
+</script>
+
 </html>
-
-
-
-
-
-
